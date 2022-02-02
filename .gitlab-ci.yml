@@ -43,3 +43,6 @@ deploy-job:      # This job runs in the deploy stage.
   script:
     - echo "Deploying application..."
     - echo "Application successfully deployed."
+  environment:
+    name: production
+    url: https://normal-map-gen-group.normal-map-generator.io/
