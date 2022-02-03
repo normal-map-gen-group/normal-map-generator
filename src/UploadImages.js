@@ -17,7 +17,7 @@ export default function UploadImages() {
 
     return (
         <>
-            { imagesURLs.map(imageSrc => <img src={imageSrc} alt="uploaded image" className="App-logo" />) }
+            { imagesURLs.map(imageSrc => <img src={imageSrc} alt="uploaded spinner" className="App-logo" />) }
             <br></br><input type="file" multiple accept="image/*" onChange={onImageChange} />
         </>
     );
