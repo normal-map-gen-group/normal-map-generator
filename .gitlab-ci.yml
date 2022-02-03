@@ -1,7 +1,7 @@
 stages:
   - build
   - test
-  - docker-build
+  - deploy
 
 build:
   stage: build
