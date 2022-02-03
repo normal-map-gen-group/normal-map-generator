@@ -1,7 +1,7 @@
 stages:
   - build
   - test
-  - deploy
+  - docker-build
 
 build:
   stage: build
@@ -9,10 +9,8 @@ build:
   script: 
     - echo "Start building App"
     - npm install
-    #- npm run build
-    # use yarn to make a production build
-    - yarn build
-    - echo "Built successfully!"
+    - npm run build
+    - echo "Build successfully!"
   artifacts:
     expire_in: 1 hour
     paths:
@@ -27,11 +25,13 @@ test:
     - CI=true npm test
     - echo "Test successfully!"
 
-deploy:
-  stage: deploy
-  image: node
+docker-build:
+  stage: docker-build
+  image: docker:latest
+  services: 
+    - name: docker:19.03.8-dind
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
   script:
-    - echo "Deploy App"
-    #- npm start
-    - yarn start
-    - echo "App deployed successfully!"
+    - docker build --pull -t "$CI_REGISTRY_IMAGE" .
+    - docker push "$CI_REGISTRY_IMAGE"
