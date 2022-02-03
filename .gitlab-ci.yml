@@ -9,8 +9,10 @@ build:
   script: 
     - echo "Start building App"
     - npm install
-    - npm run build
-    - echo "Build successfully!"
+    #- npm run build
+    # use yarn to make a production build
+    - yarn build
+    - echo "Built successfully!"
   artifacts:
     expire_in: 1 hour
     paths:
@@ -30,5 +32,6 @@ deploy:
   image: node
   script:
     - echo "Deploy App"
-    - npm start
+    #- npm start
+    - yarn start
     - echo "App deployed successfully!"
