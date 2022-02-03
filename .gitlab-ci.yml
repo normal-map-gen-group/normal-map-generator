@@ -1,7 +1,7 @@
 stages:
   - build
   - test
-  - deploy
+  - pages
 
 build:
   stage: build
@@ -25,10 +25,16 @@ test:
     - CI=true npm test
     - echo "Test successfully!"
 
-deploy:
+pages:
+  image: alpine:latest
   stage: deploy
-  image: node
+  variables:
+    GIT_STRATEGY: none        # Do not clone git repo
   script:
+    # Rename the CRA `build` folder to `public`
     - echo "Deploying App"
-    - serve -s build
-    - echo "App Deployed!"
+    - mv build public    
+    - echo "App Deployed!"     
+  artifacts:
+    paths:
+      - public
