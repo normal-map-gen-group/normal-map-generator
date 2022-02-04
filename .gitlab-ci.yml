@@ -3,38 +3,45 @@ stages:
   - test
   - deploy
 
+image: node
+
 build:
   stage: build
-  image: node
-  script: 
+  cache:
+    paths:
+      - node_modules/
+  script:
     - echo "Start building App"
     - npm install
     - npm run build
     - echo "Build successfully!"
   artifacts:
-    expire_in: 1 hour
     paths:
       - build
-      - node_modules/
 
 test:
   stage: test
-  image: node
+  cache:
+    paths:
+      - node_modules/
+    policy: pull
   script:
     - echo "Testing App"
-    - CI=true npm test
+    - npm run test
     - echo "Test successfully!"
 
 pages:
-  image: alpine:latest
   stage: deploy
-  variables:
-    GIT_STRATEGY: none        # Do not clone git repo
+  dependencies: 
+    - build
   script:
-    # Rename the CRA `build` folder to `public`
     - echo "Deploying App"
-    - mv build public    
-    - echo "App Deployed!"     
+    - rm -rf public
+    - cp build/index.html build/404.html
+    - mv build public
+    - echo "App Deployed!"
   artifacts:
     paths:
       - public
+  only:
+    - main
