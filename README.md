@@ -21,6 +21,7 @@ The source code for the App itself is in the `src` folder
 ### boot up the instance
 
 `cd normal-map-generator`
+
 `npm start`
 
 ### view the app
