@@ -6,7 +6,7 @@
 
 The source code for the App itself is in the `src` folder
 
-## How to run NMG as a local React App
+## How to run NPM as a local React App
 
 ### download NodeJS
 
