@@ -18,6 +18,12 @@ The source code for the App itself is in the `src` folder
 
 `git clone https://serd.uab.albany.edu/normal-map-gen-group/normal-map-generator`
 
+### make sure you have correct versions for things to run
+
+`Node >= 14.0.0 and npm >= 5.6`
+
+(when we met on February 7th for example, Brian tried to load the project but the local Node installation was Node 10, the latest is 16.13!)
+
 ### boot up the instance
 
 `cd normal-map-generator`
@@ -27,3 +33,5 @@ The source code for the App itself is in the `src` folder
 ### view the app
 
 Open a web browser and visit `localhost:3000`
+
+It should open automatically
