@@ -24,9 +24,15 @@ The source code for the App itself is in the `src` folder
 
 (when we met on February 7th for example, Brian tried to load the project but the local Node installation was Node 10, the latest is 16.13!)
 
-### boot up the instance
+### get into the git directory
 
 `cd normal-map-generator`
+
+### if you haven't already, install 'react-scripts'
+
+`npm install react-scripts`
+
+### boot up the instance
 
 `npm start`
 
@@ -35,3 +41,5 @@ The source code for the App itself is in the `src` folder
 Open a web browser and visit `localhost:3000`
 
 It should open automatically
+
+###
