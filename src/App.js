@@ -1,6 +1,5 @@
 import React, {useRef} from 'react';
 import './App.css';
-import UploadImages from './UploadImages';
 
 
 function App() {
@@ -99,7 +98,6 @@ function App() {
     <div className="App">
       <header className="App-header">
         <p>
-          {/* <UploadImages></UploadImages> */}
           <canvas ref={Canvas} width="500" height="500"></canvas>
           <input id="upload-button" type="file" accept="image/*" onChange={onImgLoad}/>
         </p>
