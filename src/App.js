@@ -8,8 +8,8 @@ function App() {
       <header className="App-header">
         <p>
           
-          <UploadImages></UploadImages>
-          <UploadImages></UploadImages>
+          <UploadImages></UploadImages>          
+          <button onclick="DownloadImages()">Download File </button>
         </p>
       </header>
     </div>
