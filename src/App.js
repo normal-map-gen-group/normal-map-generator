@@ -6,7 +6,7 @@ function App() {
 
   const Canvas = useRef()
   let cv = window.cv
-  const img = new Image
+  const img = new Image()
 
   let Vector = function(x, y, z){
     this.x = x
