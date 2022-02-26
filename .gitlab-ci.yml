@@ -13,6 +13,7 @@ build:
   script:
     - echo "Start building App"
     - npm install
+    - npm install react-scripts
     - npm run build
     - echo "Build successfully!"
   artifacts:
