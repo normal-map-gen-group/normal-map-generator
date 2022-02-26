@@ -36,6 +36,7 @@ pages:
     - build
   script:
     - echo "Deploying App"
+    - npm run deploy
     - rm -rf public
     - cp build/index.html build/404.html
     - mv build public
