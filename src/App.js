@@ -41,25 +41,30 @@ function App() {
       //grayscale
       cv.cvtColor(src, src, cv.COLOR_RGB2GRAY, 0);
 
+      let ksize = new cv.Size(2, 2);
+      let anchor = new cv.Point(-1, -1);
+      cv.blur(src, src, ksize, anchor, cv.BORDER_DEFAULT);
+
       //Steps: Compute Sobel In X, Compute Sobel in Y
       // R = Sobel X
       // G = Sobel Y
       // B = 1.0/strength
       
       // //X SOBEL
-      cv.Sobel(src, dstx, cv.CV_8U, 1, 0, 3, 1, 0, cv.BORDER_DEFAULT);
+      cv.Sobel(src, dstx, -1, 1, 0, 3, 1, 0, cv.BORDER_DEFAULT);
       cv.imshow(canvas, dstx) //show img on canvas so we can access it
       let imgData = ctx.getImageData(0, 0, img.width, img.height);
       let sobelX = imgData.data.slice();
 
       // //Y SOBEL
-      cv.Sobel(src, dsty, cv.CV_8U, 0, 1, 3, 1, 0, cv.BORDER_DEFAULT);
+      cv.Sobel(src, dsty, -1, 0, 1, 3, 1, 0, cv.BORDER_DEFAULT);
       cv.imshow(canvas, dsty) //show img on canvas so we can access it
 
       imgData = ctx.getImageData(0, 0, img.width, img.height);
       let sobelY = imgData.data.slice();
 
-      let intensity = 0.1;
+      let intensity = 0.01;
+      // let level = 1;
       imgData = ctx.getImageData(0, 0, img.width, img.height);
 
       for(let i = 0; i < imgData.data.length; i += 4) {
@@ -71,18 +76,23 @@ function App() {
         let vector = new Vector(dX, dY, dZ)
         vector.Normalize()
 
-        imgData.data[i] = (vector.x * 0.5 + 0.5) * 255;
-        imgData.data[i + 1] = (vector.y * 0.5 + 0.5) * 255;
-        imgData.data[i + 2] = (vector.z * 0.5 + 0.5) * 255;
-        imgData.data[i + 3] = 255;
+        imgData.data[i] = (vector.x * 0.5 + 0.5) * 255.0;
+        imgData.data[i + 1] = (vector.y * 0.5 + 0.5) * 255.0;
+        imgData.data[i + 2] = (vector.z) * 255.0;
+        imgData.data[i + 3] = 255.0;
 
         // dst[dstOff] = (dX/l * 0.5 + 0.5) * 255.0; 	// red
 				// dst[dstOff+1] = (dY/l * 0.5 + 0.5) * 255.0; 	// green
 				// dst[dstOff+2] = dZ/l * 255.0; 			
 
       }
+      // let ksize = new cv.Size(3, 3);
+      // let anchor = new cv.Point(-1, -1);
+      // cv.blur(src, src, ksize, anchor, cv.BORDER_DEFAULT);
 
-
+      // let kdata = [-1,-1,-1,-1,20,-1,-1,-1,-1] ;
+      // let M = cv.matFromArray(3,3, cv.CV_32FC1,kdata);
+      // cv.filter2D(src, src, -1, M, anchor, 0, cv.BORDER_DEFAULT);
 
 
       ctx.putImageData(imgData, 0, 0, 0, 0, img.width, img.height)
@@ -97,6 +107,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <p>
+          {/* <UploadImages></UploadImages> */}
           <canvas ref={Canvas} width="500" height="500"></canvas>
           <input id="upload-button" type="file" accept="image/*" onChange={onImgLoad}/>
         </p>
