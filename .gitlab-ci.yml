@@ -3,7 +3,7 @@ stages:
   - test
   - deploy
 
-image: node:16.13.2
+image: node:16.14.0
 
 build:
   stage: build
@@ -36,6 +36,7 @@ pages:
     - build
   script:
     - echo "Deploying App"
+    - npm run deploy
     - rm -rf public
     - cp build/index.html build/404.html
     - mv build public
@@ -43,5 +44,6 @@ pages:
   artifacts:
     paths:
       - public
+      - node_modules/
   only:
     - main

@@ -41,3 +41,10 @@
   position:relative;
   top:50px;
 }
+
+canvas{
+  margin-right: auto;
+  margin-left: auto;
+  display: block;
+  max-width: 500px;
+}
