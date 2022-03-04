@@ -21,7 +21,14 @@ function App() {
   }
 
      
-
+  function download(){
+    var canvas = document.getElementById("upload-button");
+    var url = canvas.toDataURL("image/jpg");
+    var link = document.createElement('a');
+    link.href = url;
+    link.download = 'download.jpg';
+    link.click();
+  }
 
   const onImgLoad = (event) =>{
 
@@ -111,8 +118,8 @@ function App() {
           <canvas ref={Canvas} width="500" height="500"></canvas>
           <input id="upload-button" type="file" accept="image/*" onChange={onImgLoad}/>
 
-          
-          <a href="cat.jpg" download="cat.jpg"><button>Download Image</button></a>
+          <input id="download-button" type="button" value="Download Normal Map" onclick="download();"/>
+          <a href="cat.jpg" download="cat.jpg"><button>This will download a cute cat</button></a>
 
         </p>
       </header>
