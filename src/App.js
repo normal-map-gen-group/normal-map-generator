@@ -110,6 +110,9 @@ function App() {
           {/* <UploadImages></UploadImages> */}
           <canvas ref={Canvas} width="500" height="500"></canvas>
           <input id="upload-button" type="file" accept="image/*" onChange={onImgLoad}/>
+          <a href="./images/cat.jpg" download="catsssssss.jpg">
+          <button>Download File</button></a>
+          
         </p>
       </header>
     </div>
