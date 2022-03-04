@@ -21,15 +21,7 @@ function App() {
   }
 
      
-  function download(){
-    var canvas = document.getElementById("upload-button");
-    var url = canvas.toDataURL("image/jpg");
-    var link = document.createElement('a');
-    link.href = url;
-    link.download = 'download.jpg';
-    link.click();
-  }
-
+  
   const onImgLoad = (event) =>{
 
     const canvas = Canvas.current
@@ -109,16 +101,30 @@ function App() {
 
   }
 
+  var download = function(){
+    var link = document.createElement('a');
+    link.download = 'filename.png';
+    link.href = document.getElementById('canv').toDataURL()
+    link.click();
+  }
+
+
 
   return (
     <div className="App">
       <header className="App-header">
         <p>
           {/* <UploadImages></UploadImages> */}
-          <canvas ref={Canvas} width="500" height="500"></canvas>
+          <canvas id="canv" ref={Canvas} width="500" height="500"></canvas>
           <input id="upload-button" type="file" accept="image/*" onChange={onImgLoad}/>
 
-          <input id="download-button" type="button" value="Download Normal Map" onclick="download();"/>
+          {/* This button doesnt work at all, but is the one I want to work */}
+          <input id="download-button" type="button" value="Download Normal Map" onChange={download}/>
+
+          {/* this button "works" but downloads an image of unsupported type. not sure whats happening here*/}
+          <a id="download-button" download="normalmap.jpg" href="" onclick="download"><button>Download this image</button></a>
+
+          {/* this button works but only downloads a cute cat */}
           <a href="cat.jpg" download="cat.jpg"><button>This will download a cute cat</button></a>
 
         </p>
