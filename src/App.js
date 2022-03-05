@@ -101,6 +101,8 @@ function App() {
 
   }
 
+  
+
   var download = function(){
     var link = document.createElement('a');
     link.download = 'filename.png';
@@ -119,10 +121,10 @@ function App() {
           <input id="upload-button" type="file" accept="image/*" onChange={onImgLoad}/>
 
           {/* This button doesnt work at all, but is the one I want to work */}
-          <input id="download-button" type="button" value="Download Normal Map" onChange={download}/>
-
+          <input id="download-button" type="button" value="Download Normal Map" onclick={download}/>
+          
           {/* this button "works" but downloads an image of unsupported type. not sure whats happening here*/}
-          <a id="download-button" download="normalmap.jpg" href="" onclick="download"><button>Download this image</button></a>
+          <a id="download-button" download="normalmap.png" href=" " onclick={download}><button>Download this image</button></a>
 
           {/* this button works but only downloads a cute cat */}
           <a href="cat.jpg" download="cat.jpg"><button>This will download a cute cat</button></a>
