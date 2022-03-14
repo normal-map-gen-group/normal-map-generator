@@ -2897,6 +2897,11 @@
   "resolved" "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001306.tgz"
   "version" "1.0.30001306"
 
+"canvas-to-image@^2.0.6":
+  "integrity" "sha512-gYNyYxjbgURgewB8L6CWpmJWEQkYuX/xtQPLq+CoQFgr7PH+QAdr/SgqtgwiBqln/4fjel6guuv7Ktp1NPX2Yw=="
+  "resolved" "https://registry.npmjs.org/canvas-to-image/-/canvas-to-image-2.0.6.tgz"
+  "version" "2.0.6"
+
 "canvas@^2.9.0":
   "integrity" "sha512-0l93g7uxp7rMyr7H+XRQ28A3ud0dKIUTIEkUe1Dxh4rjUYN7B93+SjC3r1PDKA18xcQN87OFGgUnyw7LSgNLSQ=="
   "resolved" "https://registry.npmjs.org/canvas/-/canvas-2.9.0.tgz"
@@ -3000,26 +3005,7 @@
   "resolved" "https://registry.npmjs.org/chardet/-/chardet-0.7.0.tgz"
   "version" "0.7.0"
 
-"chokidar@^2.1.8":
-  "integrity" "sha512-ZmZUazfOzf0Nve7duiCKD23PFSCs4JPoYyccjUFF3aQkQadqBhfzhjkwBH2mNOG9cTBwhamM37EIsIkZw3nRgg=="
-  "resolved" "https://registry.npmjs.org/chokidar/-/chokidar-2.1.8.tgz"
-  "version" "2.1.8"
-  dependencies:
-    "anymatch" "^2.0.0"
-    "async-each" "^1.0.1"
-    "braces" "^2.3.2"
-    "glob-parent" "^3.1.0"
-    "inherits" "^2.0.3"
-    "is-binary-path" "^1.0.0"
-    "is-glob" "^4.0.0"
-    "normalize-path" "^3.0.0"
-    "path-is-absolute" "^1.0.0"
-    "readdirp" "^2.2.1"
-    "upath" "^1.1.1"
-  optionalDependencies:
-    "fsevents" "^1.2.7"
-
-"chokidar@^3.3.0", "chokidar@^3.4.0":
+"chokidar@^2.1.8", "chokidar@^3.3.0", "chokidar@^3.4.0":
   "integrity" "sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw=="
   "resolved" "https://registry.npmjs.org/chokidar/-/chokidar-3.5.3.tgz"
   "version" "3.5.3"
@@ -3036,6 +3022,9 @@
 
 "chokidar2@file:./chokidar2":
   "resolved" "file:node_modules/watchpack/chokidar2"
+  "version" "2.0.0"
+  dependencies:
+    "chokidar" "^2.1.8"
 
 "chownr@^1.1.1":
   "integrity" "sha512-jJ0bqzaylmJtVnNgzTeSOs8DPavpbYgEr/b0YL8/2GO3xJEhInFmhKMUnEJQjZumK7KXGFhUy89PrsJWlakBVg=="

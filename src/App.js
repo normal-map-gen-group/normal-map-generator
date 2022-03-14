@@ -7,6 +7,8 @@ function App() {
   let cv = window.cv
   const img = new Image()
 
+  
+
   let Vector = function(x, y, z){
     this.x = x
     this.y = y
@@ -20,8 +22,6 @@ function App() {
     this.z = this.z/length;
   }
 
-     
-  
   const onImgLoad = (event) =>{
 
     const canvas = Canvas.current
@@ -80,6 +80,7 @@ function App() {
         imgData.data[i + 2] = (vector.z) * 255.0;
         imgData.data[i + 3] = 255.0;
 
+
         // dst[dstOff] = (dX/l * 0.5 + 0.5) * 255.0; 	// red
 				// dst[dstOff+1] = (dY/l * 0.5 + 0.5) * 255.0; 	// green
 				// dst[dstOff+2] = dZ/l * 255.0; 			
@@ -97,42 +98,53 @@ function App() {
       ctx.putImageData(imgData, 0, 0, 0, 0, img.width, img.height)
 
       src.delete(); dstx.delete(); dsty.delete();
+      
     }
 
   }
 
-  
 
-  var download = function(){
-    var link = document.createElement('a');
-    link.download = 'filename.png';
-    link.href = document.getElementById('canv').toDataURL()
-    link.click();
-  }
-
-
+  const download_image = function(){
+   
+      var canvas = document.getElementById("canv");
+      var anchor = document.createElement("a");
+      anchor.href = canvas.toDataURL("image/png");
+      anchor.download = "NormalMap.png";
+      anchor.click();
+    
+    
+  };
 
   return (
+    
     <div className="App">
+      
       <header className="App-header">
+        
         <p>
+          
           {/* <UploadImages></UploadImages> */}
           <canvas id="canv" ref={Canvas} width="500" height="500"></canvas>
-          <input id="upload-button" type="file" accept="image/*" onChange={onImgLoad}/>
+          <input id="upload-button" type="file" accept="image/*" onChange={onImgLoad}/>  
 
-          {/* This button doesnt work at all, but is the one I want to work */}
-          <input id="download-button" type="button" value="Download Normal Map" onclick={download}/>
-          
           {/* this button "works" but downloads an image of unsupported type. not sure whats happening here*/}
-          <a id="download-button" download="normalmap.png" href=" " onclick={download}><button>Download this image</button></a>
+          <button id="download-button" onClick={download_image}>Download Image</button>        
 
-          {/* this button works but only downloads a cute cat */}
-          <a href="cat.jpg" download="cat.jpg"><button>This will download a cute cat</button></a>
+        </p>
+        <p>
+          
+          
+          {/* this button works but only downloads a cute cat 
+          <a id="download-button" href="cat.jpg" download="cat.jpg"><button>This will download a cute cat</button></a>*/}
 
         </p>
       </header>
     </div>
   );
+
+  
 }
+
+
 
 export default App;
