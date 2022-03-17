@@ -121,7 +121,7 @@ function App() {
       
       <header className="App-header">
         <p>Normal Map Generator</p>
-        <p>Upload an image:</p>
+        
         <p>
           
           {/* <UploadImages></UploadImages> */}
