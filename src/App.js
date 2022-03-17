@@ -120,24 +120,19 @@ function App() {
     <div className="App">
       
       <header className="App-header">
-        
+        <p>Normal Map Generator</p>
+        <p>Upload an image:</p>
         <p>
           
           {/* <UploadImages></UploadImages> */}
           <canvas id="canv" ref={Canvas} width="500" height="500"></canvas>
-          <input id="upload-button" type="file" accept="image/*" onChange={onImgLoad}/>  
+          <input style={{color: 'white'}} id="upload-button" type="file" accept="image/*" onChange={onImgLoad}/>  
 
           {/* this button "works" but downloads an image of unsupported type. not sure whats happening here*/}
-          <button id="download-button" onClick={download_image}>Download Image</button>        
+          <button style={{color: 'white'}} id="download-button" onClick={download_image}>Download Image</button>        
 
         </p>
-        <p>
-          
-          
-          {/* this button works but only downloads a cute cat 
-          <a id="download-button" href="cat.jpg" download="cat.jpg"><button>This will download a cute cat</button></a>*/}
-
-        </p>
+  
       </header>
     </div>
   );
