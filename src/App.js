@@ -7,6 +7,8 @@ function App() {
   let cv = window.cv
   const img = new Image()
 
+  
+
   let Vector = function(x, y, z){
     this.x = x
     this.y = y
@@ -19,9 +21,6 @@ function App() {
     this.y = this.y/length;
     this.z = this.z/length;
   }
-
-     
-
 
   const onImgLoad = (event) =>{
 
@@ -81,6 +80,7 @@ function App() {
         imgData.data[i + 2] = (vector.z) * 255.0;
         imgData.data[i + 3] = 255.0;
 
+
         // dst[dstOff] = (dX/l * 0.5 + 0.5) * 255.0; 	// red
 				// dst[dstOff+1] = (dY/l * 0.5 + 0.5) * 255.0; 	// green
 				// dst[dstOff+2] = dZ/l * 255.0; 			
@@ -98,22 +98,49 @@ function App() {
       ctx.putImageData(imgData, 0, 0, 0, 0, img.width, img.height)
 
       src.delete(); dstx.delete(); dsty.delete();
+      
     }
 
   }
 
 
+  const download_image = function(){
+   
+      var canvas = document.getElementById("canv");
+      var anchor = document.createElement("a");
+      anchor.href = canvas.toDataURL("image/png");
+      anchor.download = "NormalMap.png";
+      anchor.click();
+    
+    
+  };
+
   return (
+    
     <div className="App">
+      
       <header className="App-header">
-        <p>
+        
+        <h1>Normal Map Generator</h1>
+        
+        <p style={{textAlign:'center'}}>
+          
           {/* <UploadImages></UploadImages> */}
-          <canvas ref={Canvas} width="500" height="500"></canvas>
-          <input id="upload-button" type="file" accept="image/*" onChange={onImgLoad}/>
+          <canvas id="canv" ref={Canvas} width="500" height="500"></canvas>
+          <p>Upload Image Below:</p>
+          <input style={{color: 'white'}} id="upload-button" type="file" accept="image/*" title=" " onChange={onImgLoad} class="hidden"/> 
+          
+          <button style={{color: 'white'}} id="download-button" onClick={download_image}>Download Image</button>        
+        
         </p>
+  
       </header>
     </div>
   );
+
+  
 }
+
+
 
 export default App;
