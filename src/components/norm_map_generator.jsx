@@ -137,8 +137,10 @@ export default function NrmMapGenCanvas(props) {
     //HTML elements of this component.
     return (
         <div id="canvas-container">
+            <p>Upload Image:
+            <input style={{color: 'white'}} id="upload-button" type="file" accept="image/*" onChange={onImgLoad} /></p>
             <canvas id="normal-canvas" ref={Canvas} width="250" height="250"></canvas>
-            <input id="upload-button" type="file" accept="image/*" onChange={onImgLoad} />
+            
         </div>
     )
 }
