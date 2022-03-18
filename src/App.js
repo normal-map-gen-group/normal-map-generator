@@ -120,17 +120,18 @@ function App() {
     <div className="App">
       
       <header className="App-header">
-        <p>Normal Map Generator</p>
         
-        <p>
+        <h1>Normal Map Generator</h1>
+        
+        <p style={{textAlign:'center'}}>
           
           {/* <UploadImages></UploadImages> */}
           <canvas id="canv" ref={Canvas} width="500" height="500"></canvas>
-          <input style={{color: 'white'}} id="upload-button" type="file" accept="image/*" onChange={onImgLoad}/>  
-
-          {/* this button "works" but downloads an image of unsupported type. not sure whats happening here*/}
+          <p>Upload Image Below:</p>
+          <input style={{color: 'white'}} id="upload-button" type="file" accept="image/*" title=" " onChange={onImgLoad} class="hidden"/> 
+          
           <button style={{color: 'white'}} id="download-button" onClick={download_image}>Download Image</button>        
-
+        
         </p>
   
       </header>

@@ -39,24 +39,33 @@
   }
 }
 
+#p-style{
+  font-family: 'Trebuchet MS', sans-serif, Helvetica, sans-serif;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
 #upload-button {
   position:relative;
   top: 50px;
   font-family: 'Trebuchet MS', sans-serif, Helvetica, sans-serif;
   border: none;
   color: white;
-  padding: 17px;
+  padding: 18px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin: 4px 2px;
+  margin: 40px 20px;
   cursor: pointer;
   border-radius: 15px;
-  transition-duration: 0.4s;
+  transition-duration: .5s;
   background-color: transparent; 
   color: black; 
   border: 2px solid #04AA6D;
+ 
+ 
 }
 
 #download-button {
@@ -64,7 +73,7 @@
   color: white;
   top: 50px;
   font-family: 'Trebuchet MS', sans-serif, Helvetica, sans-serif;
-  padding: 20px;
+  padding: 18px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -72,10 +81,11 @@
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 15px;
-  transition-duration: 0.4s;
+  transition-duration: .5s;
   background-color: transparent; 
   color: black; 
   border: 2px solid #04AA6D;
+  
   
 }
 
@@ -92,4 +102,26 @@ canvas{
   margin-left: auto;
   display: block;
   max-width: 500px;
+}
+
+p {
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-family: 'Trebuchet MS', sans-serif, Helvetica, sans-serif;
+  line-height: 32px;   /* within paragraph */
+  margin-bottom: -75px; /* between paragraphs */
+  }
+
+h1 {
+  word-spacing: absolute;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-family: 'Trebuchet MS', sans-serif, Helvetica, sans-serif;
+  line-height: 32px;   /* within paragraph */
+  margin-bottom: 50px; /* between paragraphs */
+}
+h1:hover{
+  cursor: default;
 }
