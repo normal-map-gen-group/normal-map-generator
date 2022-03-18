@@ -117,7 +117,6 @@ export default function NrmMapGenCanvas(props) {
 
     }
 
-
     //Entry point.
     //This function gets called when an image is loaded.
     const onImgLoad = (event) => {

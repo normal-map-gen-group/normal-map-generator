@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,100,900);
+
 .App {
   text-align: center;
 }
@@ -37,9 +39,62 @@
   }
 }
 
+#p-style{
+  font-family: 'Trebuchet MS', sans-serif, Helvetica, sans-serif;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
 #upload-button {
   position:relative;
-  top:50px;
+  top: 50px;
+  font-family: 'Trebuchet MS', sans-serif, Helvetica, sans-serif;
+  border: none;
+  color: white;
+  padding: 18px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 40px 20px;
+  cursor: pointer;
+  border-radius: 15px;
+  transition-duration: .5s;
+  background-color: transparent; 
+  color: black; 
+  border: 2px solid #04AA6D;
+ 
+ 
+}
+
+#download-button {
+  position:relative;
+  color: white;
+  top: 50px;
+  font-family: 'Trebuchet MS', sans-serif, Helvetica, sans-serif;
+  padding: 18px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 15px;
+  transition-duration: .5s;
+  background-color: transparent; 
+  color: black; 
+  border: 2px solid #04AA6D;
+  
+  
+}
+
+#download-button:hover {
+  background-color: #04AA6D;
+}
+
+#upload-button:hover {
+  background-color: #04AA6D;
 }
 
 canvas{
