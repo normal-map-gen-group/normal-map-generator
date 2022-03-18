@@ -114,6 +114,8 @@ p {
   }
 
 h1 {
+  position: fixed;
+  margin-top: -700px;
   word-spacing: absolute;
   text-align: center;
   text-decoration: none;
