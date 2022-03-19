@@ -26,8 +26,8 @@ function App() {
       
       <header className="App-header">
 
-      <h1>Normal Map Generator</h1>
         <div>
+          <div id="main-title">Normal Map Generator</div>
           <NrmMapGenCanvas isImageLoaded={setIsImageLoaded}></NrmMapGenCanvas>
           <button style={{color: 'white'}} id="download-button" onClick={download_image}>Download Image</button>
         </div>

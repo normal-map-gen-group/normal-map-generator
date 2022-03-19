@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 
 let baseImgMat = null //Stores the unprocessed img.
 let srcImgMat = null
@@ -8,6 +8,7 @@ let canvas = null
 let ctx = null
 let canvasData = null //TODO::This step may not be needed.
 let imgSize = [0,0]
+let isImgLoaded = false;
 
 const img = new Image()
 
@@ -18,7 +19,6 @@ export default function NrmMapGenCanvas(props) {
 
     const [intensity, setIntensity] = useState(50/5000); //Slider State
 
-
     //Generate a normal map from the image loaded on the canvas.
     //TODO::If not fast enough, convert sobels to img data.
     function GenerateNormalMap() {
@@ -27,8 +27,8 @@ export default function NrmMapGenCanvas(props) {
         baseImgMat = cv.imread(img); //base img
         srcImgMat = baseImgMat; //base img
 
-        imgSize[0] = img.width/2
-        imgSize[1] = img.height/2
+        imgSize[0] = img.width/3
+        imgSize[1] = img.height/3
 
         let dsize = new cv.Size(imgSize[0], imgSize[1]);
         cv.resize(srcImgMat, srcImgMat, dsize, 0, 0, cv.INTER_AREA);
@@ -62,25 +62,7 @@ export default function NrmMapGenCanvas(props) {
         let level = 1;
 
         updateNormalMap()
-        // canvasData = ctx.getImageData(0, 0, img.width, img.height); //TODO::This step may not be needed.
-
-        // //Loop through the pixels and calculate the RGB colors. This is where the normal map is "created".
-        // for (let i = 0; i < canvasData.data.length; i += 4) {
-
-        //     let dX = sobelxData[i]
-        //     let dY = sobelyData[i]
-        //     let dZ = 1.0 / intensity
-
-        //     let vector = new Vector(dX, dY, dZ)
-        //     vector.Normalize()
-
-        //     canvasData.data[i] = (vector.x / level * 0.5 + 0.5) * 255.0; //red
-        //     canvasData.data[i + 1] = (vector.y / level * 0.5 + 0.5) * 255.0; //green
-        //     canvasData.data[i + 2] = (vector.z / level) * 255.0; //blue
-        //     canvasData.data[i + 3] = 255.0;
-        // }
-
-        // ctx.putImageData(canvasData, 0, 0, 0, 0, img.width, img.height)
+        
         // srcImg.delete(); sobelxCVMat.delete(); sobelyCVMat.delete();
 
         //Experimental blur code.
@@ -128,17 +110,29 @@ export default function NrmMapGenCanvas(props) {
 
         //onload is used to make sure that the img is fully loaded before any processing.
         img.onload = function () {
+            isImgLoaded = true;
             props.isImageLoaded(true)
             GenerateNormalMap()
         }
     }
 
+    function onIntensityChange(event){
+        setIntensity(event.target.value); 
+        updateNormalMap()
+    }
+
+    useEffect(() => {
+        if(isImgLoaded){
+        updateNormalMap()
+        }
+     },[intensity])
 
     //HTML elements of this component.
     return (
         <div id="canvas-container">
             <p>Upload Image:
-                <input type="range" min="0.00001" max="0.01" step="0.0001" defaultValue={0.01} onChange={(event) => {setIntensity(event.target.value); updateNormalMap()}}/>
+                <input type="range" min="0.00001" max="0.01" step="0.0001" defaultValue={0.01} onChange={(event) => {onIntensityChange(event)}}/>
+                {/* <input type="range" min="0.00001" max="0.01" step="0.0001" defaultValue={0.01} onChange={(event) => {console.log(event.target.value)}}/> */}
 
                 <input style={{ color: 'white' }} id="upload-button" type="file" accept="image/*" onChange={onImgLoad} />
             </p>
