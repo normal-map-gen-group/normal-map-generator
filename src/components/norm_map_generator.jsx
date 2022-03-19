@@ -1,11 +1,13 @@
 import React, { useRef, useState } from 'react';
 
 let baseImgMat = null //Stores the unprocessed img.
+let srcImgMat = null
 let sobelxData = null
 let sobelyData = null
 let canvas = null
 let ctx = null
 let canvasData = null //TODO::This step may not be needed.
+let imgSize = [0,0]
 
 const img = new Image()
 
@@ -16,20 +18,6 @@ export default function NrmMapGenCanvas(props) {
 
     const [intensity, setIntensity] = useState(50/5000); //Slider State
 
-    //Vector class to store vectors. 
-    let Vector = function (x, y, z) {
-        this.x = x
-        this.y = y
-        this.z = z
-    }
-
-    //Normalizes a given vector.
-    Vector.prototype.Normalize = function () {
-        let length = Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z)
-        this.x = this.x / length;
-        this.y = this.y / length;
-        this.z = this.z / length;
-    }
 
     //Generate a normal map from the image loaded on the canvas.
     //TODO::If not fast enough, convert sobels to img data.
@@ -37,29 +25,35 @@ export default function NrmMapGenCanvas(props) {
         canvas = Canvas.current
         ctx = canvas.getContext("2d")
         baseImgMat = cv.imread(img); //base img
+        srcImgMat = baseImgMat; //base img
 
-        let srcImg = baseImgMat; //base img
+        imgSize[0] = img.width/2
+        imgSize[1] = img.height/2
+
+        let dsize = new cv.Size(imgSize[0], imgSize[1]);
+        cv.resize(srcImgMat, srcImgMat, dsize, 0, 0, cv.INTER_AREA);
+
         let sobelxCVMat = new cv.Mat();
         let sobelyCVMat = new cv.Mat();
 
         //Convert to grayscale.
-        cv.cvtColor(srcImg, srcImg, cv.COLOR_RGB2GRAY, 0);
+        cv.cvtColor(srcImgMat, srcImgMat, cv.COLOR_RGB2GRAY, 0);
 
         //Blur image.
         let ksize = new cv.Size(2, 2);
         let anchor = new cv.Point(-1, -1);
-        cv.blur(srcImg, srcImg, ksize, anchor, cv.BORDER_DEFAULT);
+        cv.blur(srcImgMat, srcImgMat, ksize, anchor, cv.BORDER_DEFAULT);
 
         //Compute sobel in the X direction
-        cv.Sobel(srcImg, sobelxCVMat, -1, 1, 0, 3, 1, 0, cv.BORDER_DEFAULT);
+        cv.Sobel(srcImgMat, sobelxCVMat, -1, 1, 0, 3, 1, 0, cv.BORDER_DEFAULT);
         cv.imshow(canvas, sobelxCVMat) //show img on canvas so we can access it
-        canvasData = ctx.getImageData(0, 0, img.width, img.height);
+        canvasData = ctx.getImageData(0, 0, imgSize[0], imgSize[1]);
         sobelxData = canvasData.data.slice();
 
         //Compute sobel in the Y direction
-        cv.Sobel(srcImg, sobelyCVMat, -1, 0, 1, 3, 1, 0, cv.BORDER_DEFAULT);
+        cv.Sobel(srcImgMat, sobelyCVMat, -1, 0, 1, 3, 1, 0, cv.BORDER_DEFAULT);
         cv.imshow(canvas, sobelyCVMat) //show img on canvas so we can access it
-        canvasData = ctx.getImageData(0, 0, img.width, img.height);
+        canvasData = ctx.getImageData(0, 0, imgSize[0], imgSize[1]);
         sobelyData = canvasData.data.slice();
 
         //Two values that can be controlled using sliders.
@@ -120,7 +114,7 @@ export default function NrmMapGenCanvas(props) {
             canvasData.data[i + 1] = (dY * 0.5 + 0.5) * 255.0; //green
             canvasData.data[i + 2] = (dZ * 255.0); //blue
         }
-        ctx.putImageData(canvasData, 0, 0, 0, 0, img.width, img.height)
+        ctx.putImageData(canvasData, 0, 0, 0, 0, imgSize[0], imgSize[1])
     }
 
     //Entry point.
