@@ -1,13 +1,20 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
+
+let baseImgMat = null //Stores the unprocessed img.
+let sobelxData = null
+let sobelyData = null
+let canvas = null
+let ctx = null
+let canvasData = null //TODO::This step may not be needed.
+
+const img = new Image()
 
 export default function NrmMapGenCanvas(props) {
 
     let cv = window.cv //Load opencv.
     const Canvas = useRef() //React ref to get the canvas.
-    const img = new Image()
-    let baseImg = null //Stores the unprocessed img.
-    let sobelxData = null
-    let sobelyData = null
+
+    const [intensity, setIntensity] = useState(50/5000); //Slider State
 
     //Vector class to store vectors. 
     let Vector = function (x, y, z) {
@@ -27,15 +34,13 @@ export default function NrmMapGenCanvas(props) {
     //Generate a normal map from the image loaded on the canvas.
     //TODO::If not fast enough, convert sobels to img data.
     function GenerateNormalMap() {
+        canvas = Canvas.current
+        ctx = canvas.getContext("2d")
+        baseImgMat = cv.imread(img); //base img
 
-        const canvas = Canvas.current
-        const ctx = canvas.getContext("2d")
-        baseImg = cv.imread(img); //base img
-
-        let srcImg = baseImg; //base img
+        let srcImg = baseImgMat; //base img
         let sobelxCVMat = new cv.Mat();
         let sobelyCVMat = new cv.Mat();
-        let canvasData = null //
 
         //Convert to grayscale.
         cv.cvtColor(srcImg, srcImg, cv.COLOR_RGB2GRAY, 0);
@@ -58,30 +63,31 @@ export default function NrmMapGenCanvas(props) {
         sobelyData = canvasData.data.slice();
 
         //Two values that can be controlled using sliders.
-        let intensity = 0.01; 
+        // let intensity = 0.01;
+        // let intensity = this.intensity;
         let level = 1;
-        
-        canvasData = ctx.getImageData(0, 0, img.width, img.height); //TODO::This step may not be needed.
 
+        updateNormalMap()
+        // canvasData = ctx.getImageData(0, 0, img.width, img.height); //TODO::This step may not be needed.
 
-        //Loop through the pixels and calculate the RGB colors. This is where the normal map is "created".
-        for (let i = 0; i < canvasData.data.length; i += 4) {
+        // //Loop through the pixels and calculate the RGB colors. This is where the normal map is "created".
+        // for (let i = 0; i < canvasData.data.length; i += 4) {
 
-            let dX = sobelxData[i]
-            let dY = sobelyData[i]
-            let dZ = 1.0 / intensity
+        //     let dX = sobelxData[i]
+        //     let dY = sobelyData[i]
+        //     let dZ = 1.0 / intensity
 
-            let vector = new Vector(dX, dY, dZ)
-            vector.Normalize()
+        //     let vector = new Vector(dX, dY, dZ)
+        //     vector.Normalize()
 
-            canvasData.data[i] = (vector.x/level * 0.5 + 0.5) * 255.0; //red
-            canvasData.data[i + 1] = (vector.y/level * 0.5 + 0.5) * 255.0; //green
-            canvasData.data[i + 2] = (vector.z/level) * 255.0; //blue
-            canvasData.data[i + 3] = 255.0;
-        }
+        //     canvasData.data[i] = (vector.x / level * 0.5 + 0.5) * 255.0; //red
+        //     canvasData.data[i + 1] = (vector.y / level * 0.5 + 0.5) * 255.0; //green
+        //     canvasData.data[i + 2] = (vector.z / level) * 255.0; //blue
+        //     canvasData.data[i + 3] = 255.0;
+        // }
 
-        ctx.putImageData(canvasData, 0, 0, 0, 0, img.width, img.height)
-        srcImg.delete(); sobelxCVMat.delete(); sobelyCVMat.delete();
+        // ctx.putImageData(canvasData, 0, 0, 0, 0, img.width, img.height)
+        // srcImg.delete(); sobelxCVMat.delete(); sobelyCVMat.delete();
 
         //Experimental blur code.
         // let ksize = new cv.Size(3, 3);
@@ -93,28 +99,28 @@ export default function NrmMapGenCanvas(props) {
     }
 
 
-    function updateNormalMap(intensity, level){
-        const canvas = Canvas.current
-        const ctx = canvas.getContext("2d")
+    let dZ = 1.0 / intensity
+    function updateNormalMap() {
 
-        let canvasData = ctx.getImageData(0, 0, img.width, img.height); //TODO::This step may not be needed.
+        //Loop through the pixels and calculate the RGB colors. This is where the normal map is "created".
+        let dX = 0
+        let dY = 0
+        let length = 0
 
-         //Loop through the pixels and calculate the RGB colors. This is where the normal map is "created".
-         for (let i = 0; i < canvasData.data.length; i += 4) {
+        for (let i = 0; i < canvasData.data.length; i += 4) {
 
-            let dX = sobelxData[i]
-            let dY = sobelyData[i]
-            let dZ = 1.0 / intensity
+            dX = sobelxData[i]
+            dY = sobelyData[i]
 
-            let vector = new Vector(dX, dY, dZ)
-            vector.Normalize()
+            length = Math.sqrt(dX * dX + dY * dY + dZ * dZ)
+            dX = dX / length;
+            dY = dY / length;
 
-            canvasData.data[i] = (vector.x/level * 0.5 + 0.5) * 255.0; //red
-            canvasData.data[i + 1] = (vector.y/level * 0.5 + 0.5) * 255.0; //green
-            canvasData.data[i + 2] = (vector.z/level) * 255.0; //blue
-            canvasData.data[i + 3] = 255.0;
+            canvasData.data[i] = (dX * 0.5 + 0.5) * 255.0; //red
+            canvasData.data[i + 1] = (dY * 0.5 + 0.5) * 255.0; //green
+            canvasData.data[i + 2] = (dZ * 255.0); //blue
         }
-
+        ctx.putImageData(canvasData, 0, 0, 0, 0, img.width, img.height)
     }
 
     //Entry point.
@@ -138,9 +144,12 @@ export default function NrmMapGenCanvas(props) {
     return (
         <div id="canvas-container">
             <p>Upload Image:
-            <input style={{color: 'white'}} id="upload-button" type="file" accept="image/*" onChange={onImgLoad} /></p>
+                <input type="range" min="0.00001" max="0.01" step="0.0001" defaultValue={0.01} onChange={(event) => {setIntensity(event.target.value); updateNormalMap()}}/>
+
+                <input style={{ color: 'white' }} id="upload-button" type="file" accept="image/*" onChange={onImgLoad} />
+            </p>
             <canvas id="normal-canvas" ref={Canvas} width="250" height="250"></canvas>
-            
+
         </div>
     )
 }
