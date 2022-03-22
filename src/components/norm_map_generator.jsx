@@ -92,7 +92,6 @@ export default function NrmMapGenCanvas(props) {
         // cv.filter2D(src, src, -1, M, anchor, 0, cv.BORDER_DEFAULT);
     }
 
-
     function updateNormalMap(intensity, level){
         const canvas = Canvas.current
         const ctx = canvas.getContext("2d")

@@ -10,7 +10,7 @@ import NrmMapGenCanvas from "./components/norm_map_generator"
 function App() {
 
   //States
-  const [isImageLoaded, setIsImageLoaded] = useState(false) //State to tell if an img is loaded or not.
+  const [setIsImageLoaded] = useState(false) //State to tell if an img is loaded or not.
 
   const download_image = function(){
       var canvas = document.getElementById("normal-canvas");
