@@ -92,30 +92,6 @@ export default function NrmMapGenCanvas(props) {
         // cv.filter2D(src, src, -1, M, anchor, 0, cv.BORDER_DEFAULT);
     }
 
-    function updateNormalMap(intensity, level){
-        const canvas = Canvas.current
-        const ctx = canvas.getContext("2d")
-
-        let canvasData = ctx.getImageData(0, 0, img.width, img.height); //TODO::This step may not be needed.
-
-         //Loop through the pixels and calculate the RGB colors. This is where the normal map is "created".
-         for (let i = 0; i < canvasData.data.length; i += 4) {
-
-            let dX = sobelxData[i]
-            let dY = sobelyData[i]
-            let dZ = 1.0 / intensity
-
-            let vector = new Vector(dX, dY, dZ)
-            vector.Normalize()
-
-            canvasData.data[i] = (vector.x/level * 0.5 + 0.5) * 255.0; //red
-            canvasData.data[i + 1] = (vector.y/level * 0.5 + 0.5) * 255.0; //green
-            canvasData.data[i + 2] = (vector.z/level) * 255.0; //blue
-            canvasData.data[i + 3] = 255.0;
-        }
-
-    }
-
     //Entry point.
     //This function gets called when an image is loaded.
     const onImgLoad = (event) => {
