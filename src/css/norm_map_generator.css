@@ -1,0 +1,33 @@
+
+#upload-button {
+  position:center;
+  top: 50px;
+  font-family: 'Trebuchet MS', sans-serif, Helvetica, sans-serif;
+  border: none;
+  color: white;
+  padding: 18px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 40px 20px;
+  cursor: pointer;
+  border-radius: 15px;
+  transition-duration: .5s;
+  background-color: transparent; 
+  color: black; 
+  border: 2px solid #04AA6D;
+}
+
+#upload-button:hover {
+  background-color: #04AA6D;
+}
+
+canvas{
+  margin-right: auto;
+  margin-left: auto;
+  display: inline-block;
+  max-width: 250px;
+  margin-top: 20px;
+  margin-bottom: 150px;
+}

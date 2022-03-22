@@ -1,0 +1,22 @@
+#download-button {
+  position:center;
+  color: white;
+  top: 50px;
+  font-family: 'Trebuchet MS', sans-serif, Helvetica, sans-serif;
+  padding: 18px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 15px;
+  transition-duration: .5s;
+  background-color: transparent; 
+  color: black; 
+  border: 2px solid #04AA6D;
+}
+
+#download-button:hover {
+  background-color: #04AA6D;
+}

@@ -1,5 +1,7 @@
 import React, { useRef } from 'react';
 
+import '../css/norm_map_generator.css';
+
 export default function NrmMapGenCanvas(props) {
 
     let cv = window.cv //Load opencv.

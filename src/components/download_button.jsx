@@ -1,5 +1,7 @@
 import React from 'react';
 
+import '../css/download_button.css';
+
 export default function DownloadButton(props) {
 
   const download_image = function(){
