@@ -8,7 +8,6 @@ import 'materialize-css';
 ReactDOM.render(
   <React.StrictMode>
     <App />
-    <download_button />
   </React.StrictMode>,
   document.getElementById('root')
 );
