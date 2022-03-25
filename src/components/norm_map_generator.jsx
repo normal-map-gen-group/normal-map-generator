@@ -9,6 +9,7 @@ let ctx = null
 let canvasData = null //TODO::This step may not be needed.
 let imgSize = [0,0]
 let isImgLoaded = false;
+let skipResize = false;
 
 const img = new Image()
 
@@ -18,6 +19,29 @@ export default function NrmMapGenCanvas(props) {
     const Canvas = useRef() //React ref to get the canvas.
 
     const [intensity, setIntensity] = useState(50/5000); //Slider State
+    const [blurAmount, setBlurAmount] = useState(0.01)
+
+    function getBestSize(){
+        let targetSize = 500;
+        skipResize = false;
+        if(img.width > img.height && img.width > targetSize){
+            // let ratio = img.width/img.height
+            let rescaleFactor = img.width / targetSize
+            imgSize[0] = img.width / rescaleFactor
+            imgSize[1] = img.height / rescaleFactor
+        }
+        else if(img.height > targetSize){
+            let rescaleFactor = img.height / targetSize
+            imgSize[0] = img.width / rescaleFactor
+            imgSize[1] = img.height / rescaleFactor
+        }
+        else{
+            let rescaleFactor = targetSize / img.width 
+            imgSize[0] = img.width * rescaleFactor
+            imgSize[1] = img.height * rescaleFactor
+            // skipResize = true;
+        }
+    }
 
     //Generate a normal map from the image loaded on the canvas.
     //TODO::If not fast enough, convert sobels to img data.
@@ -27,11 +51,14 @@ export default function NrmMapGenCanvas(props) {
         baseImgMat = cv.imread(img); //base img
         srcImgMat = baseImgMat; //base img
 
-        imgSize[0] = img.width/3
-        imgSize[1] = img.height/3
-
+        // imgSize[0] = img.width/3
+        // imgSize[1] = img.height/3
+        getBestSize()
+        
         let dsize = new cv.Size(imgSize[0], imgSize[1]);
-        cv.resize(srcImgMat, srcImgMat, dsize, 0, 0, cv.INTER_AREA);
+        if(!skipResize){
+            cv.resize(srcImgMat, srcImgMat, dsize, 0, 0, cv.INTER_AREA);
+        }
 
         let sobelxCVMat = new cv.Mat();
         let sobelyCVMat = new cv.Mat();
@@ -74,7 +101,7 @@ export default function NrmMapGenCanvas(props) {
         // cv.filter2D(src, src, -1, M, anchor, 0, cv.BORDER_DEFAULT);
     }
 
-
+    //TODO::Clean this
     let dZ = 1.0 / intensity
     function updateNormalMap() {
 
@@ -99,6 +126,14 @@ export default function NrmMapGenCanvas(props) {
         ctx.putImageData(canvasData, 0, 0, 0, 0, imgSize[0], imgSize[1])
     }
 
+    //Blurs the canvas contents.
+    function blurUpdate(){
+        ctx.filter = `blur(${blurAmount}px)`;
+        ctx.putImageData(canvasData, 0, 0, 0, 0, imgSize[0], imgSize[1])
+        ctx.drawImage(canvas, 0, 0);
+    }
+    
+   
     //Entry point.
     //This function gets called when an image is loaded.
     const onImgLoad = (event) => {
@@ -116,14 +151,17 @@ export default function NrmMapGenCanvas(props) {
         }
     }
 
+    //Updates the normal map on slider change.
     function onIntensityChange(event){
         setIntensity(event.target.value); 
         updateNormalMap()
     }
 
+    //Makes sure to update the canvas on intensity change
     useEffect(() => {
         if(isImgLoaded){
         updateNormalMap()
+        blurUpdate()
         }
      },[intensity])
 
@@ -132,6 +170,7 @@ export default function NrmMapGenCanvas(props) {
         <div id="canvas-container">
             <p>Upload Image:
                 <input type="range" min="0.00001" max="0.01" step="0.0001" defaultValue={0.01} onChange={(event) => {onIntensityChange(event)}}/>
+                <input type="range" min="0.01" max="3" step="0.001" defaultValue={0.01} onChange={(event) => {setBlurAmount(event.target.value); blurUpdate()}}/>
                 {/* <input type="range" min="0.00001" max="0.01" step="0.0001" defaultValue={0.01} onChange={(event) => {console.log(event.target.value)}}/> */}
 
                 <input style={{ color: 'white' }} id="upload-button" type="file" accept="image/*" onChange={onImgLoad} />
