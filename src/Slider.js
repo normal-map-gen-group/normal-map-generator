@@ -16,7 +16,7 @@ const sliderThumbStyles = (props) => (`
 const Styles = styled.div`
     display: flex;
     align-items: center;
-    color: #888;
+    color: #fff;
     margin-top: 2rem;
     margin-button: 2rem;
 
