@@ -13,14 +13,34 @@ let skipResize = false;
 
 const img = new Image()
 
-export default function NrmMapGenCanvas(props) {
+let gausianMatrix = [[0, 0, -1, 0, 0],
+                     [0, 0, -2, 0, 0],
+                     [-1, -2, 9, 0, 0],
+                     [0, 0, 0, 0, 0],
+                     [0, 0, 0, 0, 0],]
 
+let boxMatrix = [[1/9, 1/9, 1/9],
+                 [1/9, 1/9, 1/9],
+                 [1/9, 1/9, 1/9]]
+
+
+
+
+
+export default function NrmMapGenCanvas(props) {
+    
+    // let Caman = window.Caman
     let cv = window.cv //Load opencv.
+
+    
+    // var Caman = require('caman').Caman;
     const Canvas = useRef() //React ref to get the canvas.
 
     const [intensity, setIntensity] = useState(50/5000); //Slider State
     const [detail, setDetail] = useState(1); //Slider State
     const [blurAmount, setBlurAmount] = useState(0)
+    const [sharpnessAmount, setSharpnessAmount] = useState(0)
+
 
     /**
      * Pretty sure there is a shorter way to write this, but I'm too fried right now.
@@ -43,7 +63,6 @@ export default function NrmMapGenCanvas(props) {
             let rescaleFactor = targetSize / img.width 
             imgSize[0] = img.width * rescaleFactor
             imgSize[1] = img.height * rescaleFactor
-            // skipResize = true;
         }
     }
 
@@ -54,16 +73,12 @@ export default function NrmMapGenCanvas(props) {
         ctx = canvas.getContext("2d")
         baseImgMat = cv.imread(img); //base img
         srcImgMat = baseImgMat; //base img
-
-        // imgSize[0] = img.width/3
-        // imgSize[1] = img.height/3
         getBestSize()
         
         let dsize = new cv.Size(imgSize[0], imgSize[1]);
-        if(!skipResize){
-            cv.resize(srcImgMat, srcImgMat, dsize, 0, 0, cv.INTER_AREA);
-        }
 
+        cv.resize(srcImgMat, srcImgMat, dsize, 0, 0, cv.INTER_AREA);
+        
         let sobelxCVMat = new cv.Mat();
         let sobelyCVMat = new cv.Mat();
 
@@ -87,9 +102,7 @@ export default function NrmMapGenCanvas(props) {
         canvasData = ctx.getImageData(0, 0, imgSize[0], imgSize[1]);
         sobelyData = canvasData.data.slice();
 
-    
         updateNormalMap()
-        
         // srcImg.delete(); sobelxCVMat.delete(); sobelyCVMat.delete();
     }
 
@@ -118,6 +131,8 @@ export default function NrmMapGenCanvas(props) {
         ctx.putImageData(canvasData, 0, 0, 0, 0, imgSize[0], imgSize[1])
     }
 
+
+
     //Blurs the canvas contents.
     function blurUpdate(){
         ctx.filter = `blur(${blurAmount}px)`;
@@ -125,44 +140,47 @@ export default function NrmMapGenCanvas(props) {
         ctx.drawImage(canvas, 0, 0);
     }
     
-
-    // for each image row in input image:
-    // for each pixel in image row:
-
-    //     set accumulator to zero
-
-    //     for each kernel row in kernel:
-    //         for each element in kernel row:
-
-    //             if element position  corresponding* to pixel position then
-    //                 multiply element value  corresponding* to pixel value
-    //                 add result to accumulator
-    //             endif
-
-    //      set output image pixel to accumulator
-
-
-
-    // function convolution(kernel) {
-    //     let accumulator
-    //     let outputData = new ImageData()
-
-    //     for (let row = 0; row < canvasData.height; row++) {
-    //         for (let pixel = 0; pixel < canvasData.width; pixel++) {
-    //             accumulator = 0;
-
-    //             for (let rowK = 0; rowK < kernel.length; rowK++) {
-    //                 for (let elem = 0; elem < kernel.length; elem++) {
-    //                     console.log()
-    //                 }
-    //             }
-    //         }
-    //     }
+    //DO NOT DELETE
+    // function sharpnessUpdate(){
+    //     // ctx.putImageData(baseBuffer, 0, 0, 0, 0, imgSize[0], imgSize[1])
+    //     Caman("#normal-canvas", function () {
+    //         this.reloadCanvasData();
+    //         // this.revert(false)
+    //         this.sharpen(sharpnessAmount).render();
+    //     });
+    //     blurUpdate()
     // }
 
-    
-   
-    //Entry point.
+    //Updates the normal map on slider change.
+    function onIntensityChange(event){
+        setIntensity(event.target.value); 
+        updateNormalMap()
+    }
+
+    //Updates the normal map on slider change.
+    function onLevelChange(event){
+        setDetail(event.target.value * -1); 
+        updateNormalMap()
+    }
+
+    //DO NOT DELETE
+    // function onSharpnessChange(event){
+    //     setSharpnessAmount(event.target.value)
+    //     sharpnessUpdate();
+    // }
+
+
+    // Makes sure to update the canvas on intensity change
+    useEffect(() => {
+        if(isImgLoaded){
+        updateNormalMap()
+        blurUpdate()
+        }
+     },[intensity, detail, blurAmount])
+
+
+
+     //Entry point.
     //This function gets called when an image is loaded.
     const onImgLoad = (event) => {
 
@@ -179,47 +197,74 @@ export default function NrmMapGenCanvas(props) {
         }
     }
 
-    //Updates the normal map on slider change.
-    function onIntensityChange(event){
-        setIntensity(event.target.value); 
-        updateNormalMap()
-    }
-
-    //Updates the normal map on slider change.
-    function onLevelChange(event){
-        setDetail(event.target.value * -1); 
-        updateNormalMap()
-    }
-
-    // Makes sure to update the canvas on intensity change
-    useEffect(() => {
-        if(isImgLoaded){
-        updateNormalMap()
-        blurUpdate()
-        }
-     },[intensity])
-
-     // Makes sure to update the canvas on intensity change
-    useEffect(() => {
-        if(isImgLoaded){
-        updateNormalMap()
-        blurUpdate()
-        }
-     },[detail])
 
     //HTML elements of this component.
     return (
         <div id="canvas-container">
             <p>Upload Image:
+                Intensity
                 <input type="range" min="0.00001" max="0.05" step="0.0001" defaultValue={0.01} onChange={(event) => {onIntensityChange(event)}}/>
+                Detail
                 <input type="range" min="-10" max="10" step="0.1" defaultValue={1} onChange={(event) => {onLevelChange(event)}}/>
-                <input type="range" min="0" max="13" step="0.0001" defaultValue={0} onChange={(event) => {setBlurAmount(event.target.value); blurUpdate()}}/>
-                {/* <input type="range" min="0.00001" max="0.01" step="0.0001" defaultValue={0.01} onChange={(event) => {console.log(event.target.value)}}/> */}
+                Blur
+                <input type="range" min="0" max="13" step="0.0001" defaultValue={0} onChange={(event) => {setBlurAmount(event.target.value); blurUpdate(); }}/>
+            
+                {/* <input type="range" min="0" max="50" step="1" defaultValue={0} onChange={(event) => {onSharpnessChange(event);}}/> */}
 
                 <input style={{ color: 'white' }} id="upload-button" type="file" accept="image/*" onChange={onImgLoad} />
             </p>
             <canvas id="normal-canvas" ref={Canvas} width="250" height="250"></canvas>
-
         </div>
     )
 }
+
+
+
+//Not working :( DO NOT DELETE
+    // function convolution(kernel) {
+    //     let sum;
+    //     let outputData = new ImageData(canvasData.width, canvasData.height)
+
+    //     //For performance reasons, we calc constant offset here
+    //     let xOffset = Math.floor(kernel.length / 2)
+    //     let yOffset = Math.floor(kernel[0].length / 2)
+
+    //     for (let row = 0; row < canvasData.height; row++) {
+    //         for (let col = 0; col < canvasData.width; col++) {
+    //             //sum for 4 pixels, although A will always be 255 in our case.
+    //             sum = [0,0,0,255];
+
+    //             for (let rowK = 0; rowK < kernel.length; rowK++) {
+    //                 for (let colK = 0; colK < kernel[rowK].length; colK++) {
+
+    //                     let pixelKRow = row + rowK - xOffset;
+    //                     let pixelKCol = col + colK - yOffset;
+    //                     let kValue = kernel[rowK][colK];
+
+    //                     if (pixelKCol < 0 || pixelKCol >= canvasData.height ||
+    //                         pixelKRow < 0 || pixelKRow >= canvasData.height) {
+    //                         continue //Skip this iteration since we are out of bounds
+    //                     }
+                        
+    //                     //Convert the row col into pixel location
+    //                     let pixLoc = (pixelKRow * canvasData.width + pixelKCol) * 4;
+                        
+    //                     //For each channel in the image (we have 4, rgba. 
+    //                     //but we skip a since its always 255)
+    //                     for(let chan = 0; chan < 3; chan++){
+    //                         sum[chan] += canvasData.data[pixLoc + chan] * kValue;
+    //                     }
+                        
+    //                 }
+    //             }
+    //             let dstLoc = (row * canvasData.width + col) * 4;
+
+    //             //For each channel in the image (we have 4, rgba. 
+    //             for (let chan = 0; chan < 4; chan++) {
+    //                 outputData.data[dstLoc + chan] = sum[chan];
+    //             }
+                
+    //         }
+    //     }
+    //     ctx.putImageData(outputData, 0, 0, 0, 0, imgSize[0], imgSize[1])
+    // }
