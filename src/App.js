@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import './css/App.css';
 import NrmMapGenCanvas from "./components/norm_map_generator"
 import DownloadButton from './components/download_button';
+import PFixer from "./components/perspective_fix.jsx"
 
 //NOTE::Element id/class naming conventions to make our lives easier when writing css.
 //Use all lower case and seperate words with a dash. Example: id="upload-button"
@@ -24,7 +25,7 @@ function App() {
 
         <div>
           <p><NrmMapGenCanvas isImageLoaded={setIsImageLoaded}></NrmMapGenCanvas>
-          <DownloadButton></DownloadButton></p>
+          <DownloadButton></DownloadButton><PFixer></PFixer></p>
         </div>
       </header>
     </div>
