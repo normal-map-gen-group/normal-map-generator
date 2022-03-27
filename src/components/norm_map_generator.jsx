@@ -23,6 +23,9 @@ let boxMatrix = [[1/9, 1/9, 1/9],
                  [1/9, 1/9, 1/9],
                  [1/9, 1/9, 1/9]]
 
+import '../css/norm_map_generator.css';
+
+export default function NrmMapGenCanvas(props) {
 
 
 
