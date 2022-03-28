@@ -19,12 +19,9 @@ function App() {
       
       <header className="App-header">
 
-      <h1>Normal Map Generator</h1>
-      <p style={{textAlign:'center'}}></p>
-
         <div>
-          <p><NrmMapGenCanvas isImageLoaded={setIsImageLoaded}></NrmMapGenCanvas>
-          <DownloadButton></DownloadButton></p>
+          <NrmMapGenCanvas isImageLoaded={setIsImageLoaded}></NrmMapGenCanvas>
+          <DownloadButton></DownloadButton>
         </div>
       </header>
     </div>

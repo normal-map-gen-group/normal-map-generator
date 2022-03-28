@@ -66,6 +66,17 @@
   border: 2px solid #04AA6D;
 }
 
+#main-title{
+  font-size: 70px;
+  word-spacing: absolute;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-family: 'Trebuchet MS', sans-serif, Helvetica, sans-serif;
+  line-height: 32px;   /* within paragraph */
+  margin-bottom: 50px; /* between paragraphs */
+}
+
 #download-button {
   position:center;
   color: white;
@@ -97,7 +108,7 @@ canvas{
   margin-right: auto;
   margin-left: auto;
   display: inline-block;
-  max-width: 250px;
+  max-width: 500px;
   margin-top: 20px;
   margin-bottom: 150px;
 }
