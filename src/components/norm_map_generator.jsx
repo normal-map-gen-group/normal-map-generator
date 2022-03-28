@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import '../css/norm_map_generator.css';
 
 let baseImgMat = null //Stores the unprocessed img.
 let srcImgMat = null
@@ -23,9 +24,8 @@ let boxMatrix = [[1/9, 1/9, 1/9],
                  [1/9, 1/9, 1/9],
                  [1/9, 1/9, 1/9]]
 
-import '../css/norm_map_generator.css';
 
-export default function NrmMapGenCanvas(props) {
+
 
 
 

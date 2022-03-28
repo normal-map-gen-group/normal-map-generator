@@ -20,8 +20,8 @@ function App() {
       <header className="App-header">
 
         <div>
-          <p><NrmMapGenCanvas isImageLoaded={setIsImageLoaded}></NrmMapGenCanvas>
-          <DownloadButton></DownloadButton></p>
+          <NrmMapGenCanvas isImageLoaded={setIsImageLoaded}></NrmMapGenCanvas>
+          <DownloadButton></DownloadButton>
         </div>
       </header>
     </div>
