@@ -17,10 +17,11 @@ function App() {
         <p>
           <UploadImages></UploadImages>
           <div className="Slider">
+            Intensity
             <Slider></Slider>
-            <Slider></Slider>
-            <Slider></Slider>
-            <Slider></Slider>
+            Lighting<Slider></Slider>
+            Blur<Slider></Slider>
+            Contrast<Slider></Slider>
           </div>
         </p>
       </header>
