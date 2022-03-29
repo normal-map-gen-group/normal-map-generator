@@ -17,7 +17,6 @@ const Styles = styled.div`
     display: flex;
     align-items: center;
     color: #fff;
-    margin-top: 2rem;
     margin-button: 2rem;
 
     .value{
