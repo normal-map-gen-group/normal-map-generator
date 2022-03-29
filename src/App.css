@@ -25,7 +25,7 @@
 }
 
 .Slider{
-  height: 300px;
+  height: 350px;
   width: 300px;
   background: #c5c5c5;
   border-radius: 10px;
@@ -42,7 +42,7 @@
 
 .Slider .field input{
   -webkit-appearance: none;
-  height: 3px;
+  height: 20px;
   width: 100%;
   background-color: #ddd;
   border-radius: 5px;
