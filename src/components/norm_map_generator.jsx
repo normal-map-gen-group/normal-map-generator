@@ -1,5 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import '../css/norm_map_generator.css';
+import SliderWrapper from './slider_wrapper';
+import UploadButton from './upload_button';
 
 let baseImgMat = null //Stores the unprocessed img.
 let srcImgMat = null
@@ -206,15 +208,16 @@ export default function NrmMapGenCanvas(props) {
         <div id="canvas-container">
             <p>Upload Image:
                 Intensity
-                <input type="range" min="0.00001" max="0.05" step="0.0001" defaultValue={0.01} onChange={(event) => {onIntensityChange(event)}}/>
+                <SliderWrapper min_value={0.00001} max_value={0.05} step_value={0.0001} default_value={0.01} funcForThis={(event) => {onIntensityChange(event)}} />
                 Detail
-                <input type="range" min="-10" max="10" step="0.1" defaultValue={1} onChange={(event) => {onLevelChange(event)}}/>
+                <SliderWrapper min_value={-10} max_value={10} step_value={0.1} default_value={1} funcForThis={(event) => {onLevelChange(event)}} />
                 Blur
-                <input type="range" min="0" max="13" step="0.0001" defaultValue={0} onChange={(event) => {setBlurAmount(event.target.value); blurUpdate(); }}/>
+                <SliderWrapper min_value={0} max_value={13} step_value={0.0001} default_value={0} funcForThis={(event) => {setBlurAmount(event.target.value); blurUpdate();}} />
             
                 {/* <input type="range" min="0" max="50" step="1" defaultValue={0} onChange={(event) => {onSharpnessChange(event);}}/> */}
 
-                <input style={{ color: 'white' }} id="upload-button" type="file" accept="image/*" onChange={onImgLoad} />
+                {/*<input style={{ color: 'white' }} id="upload-button" type="file" accept="image/*" onChange={onImgLoad} />*/}
+                <UploadButton color="white" changeFunc={onImgLoad} />
             </p>
             <canvas id="normal-canvas" ref={Canvas} width="250" height="250"></canvas>
         </div>
