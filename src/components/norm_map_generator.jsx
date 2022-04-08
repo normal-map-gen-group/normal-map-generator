@@ -216,7 +216,6 @@ export default function NrmMapGenCanvas(props) {
             
                 {/* <input type="range" min="0" max="50" step="1" defaultValue={0} onChange={(event) => {onSharpnessChange(event);}}/> */}
 
-                {/*<input style={{ color: 'white' }} id="upload-button" type="file" accept="image/*" onChange={onImgLoad} />*/}
                 <UploadButton color="white" changeFunc={onImgLoad} />
             </p>
             <canvas id="normal-canvas" ref={Canvas} width="250" height="250"></canvas>
