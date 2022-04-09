@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {  } from 'react';
 
 import '../css/download_button.css';
 
-export default function DownloadButton(props) {
+export default function DownloadButton(props, ref) {
 
   function download_image() {
-    props.renderHighRes()
+    props.renderHighRes() //This function gets passed in as a prop. When callced, it triggers a high res render.
     var canvas = document.getElementById("highres-canvas");
     var anchor = document.createElement("a");
     anchor.href = canvas.toDataURL("image/png");
@@ -19,3 +19,4 @@ export default function DownloadButton(props) {
       </div>
   )
 }
+

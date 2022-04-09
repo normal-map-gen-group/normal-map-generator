@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import DownloadButton from '../components/download_button';
 import '../css/norm_map_generator.css';
 
@@ -11,24 +11,25 @@ let ctx = null
 let canvasData = null //TODO::This step may not be needed.
 let imgSize = [0,0]
 let orgSize = [0,0]
-let isRenderHighRes = false;
 let isImgLoaded = false;
+let dZ = 1
+let globalBlurAmnt = 0;
 
 const img = new Image()
 
 
-export default function NrmMapGenCanvas(props) {
+function NrmMapGenCanvas(props, ref){
     
     // let Caman = window.Caman
     let cv = window.cv //Load opencv.
-
+    
     const Canvas = useRef() //React ref to get the canvas.
     const HDCanvas = useRef()
+    const isRenderHighRes = useRef(false);
 
     const [intensity, setIntensity] = useState(50/5000); //Slider State
     const [detail, setDetail] = useState(1); //Slider State
     const [blurAmount, setBlurAmount] = useState(0)
-    // const [isrenderFullRes, setRenderFullres] = useState(false)
 
 
     /**
@@ -57,7 +58,7 @@ export default function NrmMapGenCanvas(props) {
     //Generate a normal map from the image loaded on the canvas.
     //TODO::If not fast enough, convert sobels to img data.
     function GenerateNormalMap() {
-        if(isRenderHighRes){
+        if(isRenderHighRes.current){
             canvas = HDCanvas.current
         }
         else{
@@ -69,7 +70,7 @@ export default function NrmMapGenCanvas(props) {
         orgSize[0] = img.width
         orgSize[1] = img.height
 
-        if(isRenderHighRes){
+        if(isRenderHighRes.current){
             imgSize[0] = orgSize[0]
             imgSize[1] = orgSize[1]
         }
@@ -108,7 +109,7 @@ export default function NrmMapGenCanvas(props) {
     }
 
     //TODO::Clean this
-    let dZ = 1.0/ intensity * (1.0 + Math.pow(2.0, detail))
+    dZ = 1.0/ intensity * (1.0 + Math.pow(2.0, detail))
     function updateNormalMap() {
 
         //Loop through the pixels and calculate the RGB colors. This is where the normal map is "created".
@@ -136,9 +137,10 @@ export default function NrmMapGenCanvas(props) {
 
     //Blurs the canvas contents.
     function blurUpdate(){
-        ctx.filter = `blur(${blurAmount}px)`;
+        ctx.filter = `blur(${globalBlurAmnt}px)`;
         ctx.putImageData(canvasData, 0, 0, 0, 0, imgSize[0], imgSize[1])
         ctx.drawImage(canvas, 0, 0);
+        
     }
 
     //Updates the normal map on slider change.
@@ -153,11 +155,10 @@ export default function NrmMapGenCanvas(props) {
         updateNormalMap()
     }
 
-    function renderHighRes(){
-        isRenderHighRes = true;
-        GenerateNormalMap()
-        isRenderHighRes = false;
-    }
+    useImperativeHandle(ref, () => ({
+        GenerateNormalMap,
+        isRenderHighRes
+    }), [])
 
     // Makes sure to update the canvas on intensity change
     useEffect(() => {
@@ -193,14 +194,14 @@ export default function NrmMapGenCanvas(props) {
                 Detail
                 <input type="range" min="-10" max="10" step="0.1" defaultValue={1} onChange={(event) => {onLevelChange(event)}}/>
                 Blur
-                <input type="range" min="0" max="13" step="0.0001" defaultValue={0} onChange={(event) => {setBlurAmount(event.target.value); blurUpdate(); }}/>
+                <input type="range" min="0" max="13" step="0.0001" defaultValue={0} onChange={(event) => {setBlurAmount(event.target.value); globalBlurAmnt = event.target.value; blurUpdate(); }}/>
             
                 <input style={{ color: 'white' }} id="upload-button" type="file" accept="image/*" onChange={onImgLoad} />
             </p>
             <canvas id="normal-canvas" ref={Canvas} width="250" height="250"></canvas>
             <canvas id="highres-canvas" ref={HDCanvas} width="250" height="250"></canvas>
-            <DownloadButton renderHighRes={renderHighRes}></DownloadButton>
         </div>
     )
 }
 
+export default forwardRef(NrmMapGenCanvas)
