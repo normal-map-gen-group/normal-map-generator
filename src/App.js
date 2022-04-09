@@ -10,9 +10,7 @@ import DownloadButton from './components/download_button';
 
 function App() {
 
-  //States
-  const [isImageLoaded, setIsImageLoaded] = useState(false) //State to tell if an img is loaded or not.
-
+ 
   return (
     
     <div className="App">
@@ -20,8 +18,7 @@ function App() {
       <header className="App-header">
 
         <div>
-          <NrmMapGenCanvas isImageLoaded={setIsImageLoaded}></NrmMapGenCanvas>
-          <DownloadButton></DownloadButton>
+          <NrmMapGenCanvas></NrmMapGenCanvas>
         </div>
       </header>
     </div>

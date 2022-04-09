@@ -4,12 +4,13 @@ import '../css/download_button.css';
 
 export default function DownloadButton(props) {
 
-  const download_image = function(){
-      var canvas = document.getElementById("normal-canvas");
-      var anchor = document.createElement("a");
-      anchor.href = canvas.toDataURL("image/png");
-      anchor.download = "NormalMap.png";
-      anchor.click();
+  function download_image() {
+    props.renderHighRes()
+    var canvas = document.getElementById("highres-canvas");
+    var anchor = document.createElement("a");
+    anchor.href = canvas.toDataURL("image/png");
+    anchor.download = "NormalMap.png";
+    anchor.click();
   }
 
   return (
