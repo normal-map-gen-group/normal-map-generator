@@ -1,15 +1,18 @@
-import React from 'react';
+import React, {  } from 'react';
 
 import '../css/download_button.css';
 
 export default function DownloadButton(props) {
 
-  const download_image = function(){
-      var canvas = document.getElementById("normal-canvas");
+  function download_image() {
+    if(props.isImageLoaded){
+      props.renderHighRes() //This function gets passed in as a prop. When called, it triggers a high res render.
+      var canvas = document.getElementById("highres-canvas");
       var anchor = document.createElement("a");
       anchor.href = canvas.toDataURL("image/png");
       anchor.download = "NormalMap.png";
       anchor.click();
+    }
   }
 
   return (
@@ -18,3 +21,4 @@ export default function DownloadButton(props) {
       </div>
   )
 }
+

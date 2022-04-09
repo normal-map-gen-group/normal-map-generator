@@ -1,4 +1,5 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, forwardRef, useImperativeHandle } from 'react';
+import DownloadButton from '../components/download_button';
 import '../css/norm_map_generator.css';
 
 let baseImgMat = null //Stores the unprocessed img.
@@ -9,48 +10,33 @@ let canvas = null
 let ctx = null
 let canvasData = null //TODO::This step may not be needed.
 let imgSize = [0,0]
+let orgSize = [0,0]
 let isImgLoaded = false;
-let skipResize = false;
+let dZ = 1
+let globalBlurAmnt = 0;
 
 const img = new Image()
 
-let gausianMatrix = [[0, 0, -1, 0, 0],
-                     [0, 0, -2, 0, 0],
-                     [-1, -2, 9, 0, 0],
-                     [0, 0, 0, 0, 0],
-                     [0, 0, 0, 0, 0],]
 
-let boxMatrix = [[1/9, 1/9, 1/9],
-                 [1/9, 1/9, 1/9],
-                 [1/9, 1/9, 1/9]]
-
-
-
-
-
-
-
-export default function NrmMapGenCanvas(props) {
+function NrmMapGenCanvas(props, ref){
     
     // let Caman = window.Caman
     let cv = window.cv //Load opencv.
-
     
-    // var Caman = require('caman').Caman;
     const Canvas = useRef() //React ref to get the canvas.
+    const HDCanvas = useRef()
+    const isRenderHighRes = useRef(false);
 
     const [intensity, setIntensity] = useState(50/5000); //Slider State
     const [detail, setDetail] = useState(1); //Slider State
     const [blurAmount, setBlurAmount] = useState(0)
-    const [sharpnessAmount, setSharpnessAmount] = useState(0)
 
 
     /**
-     * Pretty sure there is a shorter way to write this, but I'm too fried right now.
+     * Pretty sure there is a shorter way to write this.
      */
     function getBestSize(){
-        let targetSize = 600;
-        skipResize = false;
+        let targetSize = 1000;
         if(img.width > img.height && img.width > targetSize){
             // let ratio = img.width/img.height
             let rescaleFactor = img.width / targetSize
@@ -72,16 +58,29 @@ export default function NrmMapGenCanvas(props) {
     //Generate a normal map from the image loaded on the canvas.
     //TODO::If not fast enough, convert sobels to img data.
     function GenerateNormalMap() {
-        canvas = Canvas.current
+        if(isRenderHighRes.current){
+            canvas = HDCanvas.current
+        }
+        else{
+            canvas = Canvas.current
+        }
         ctx = canvas.getContext("2d")
         baseImgMat = cv.imread(img); //base img
         srcImgMat = baseImgMat; //base img
-        getBestSize()
-        
-        let dsize = new cv.Size(imgSize[0], imgSize[1]);
+        orgSize[0] = img.width
+        orgSize[1] = img.height
 
-        cv.resize(srcImgMat, srcImgMat, dsize, 0, 0, cv.INTER_AREA);
+        if(isRenderHighRes.current){
+            imgSize[0] = orgSize[0]
+            imgSize[1] = orgSize[1]
+        }
+        else{
+            getBestSize()
+            let dsize = new cv.Size(imgSize[0], imgSize[1]);
+            cv.resize(srcImgMat, srcImgMat, dsize, 0, 0, cv.INTER_AREA);
+        }
         
+
         let sobelxCVMat = new cv.Mat();
         let sobelyCVMat = new cv.Mat();
 
@@ -110,7 +109,7 @@ export default function NrmMapGenCanvas(props) {
     }
 
     //TODO::Clean this
-    let dZ = 1.0/ intensity * (1.0 + Math.pow(2.0, detail))
+    dZ = 1.0/ intensity * (1.0 + Math.pow(2.0, detail))
     function updateNormalMap() {
 
         //Loop through the pixels and calculate the RGB colors. This is where the normal map is "created".
@@ -132,61 +131,52 @@ export default function NrmMapGenCanvas(props) {
             canvasData.data[i + 2] = (dZ * 255.0); //blue
         }
         ctx.putImageData(canvasData, 0, 0, 0, 0, imgSize[0], imgSize[1])
+        blurUpdate()
     }
-
 
 
     //Blurs the canvas contents.
     function blurUpdate(){
-        ctx.filter = `blur(${blurAmount}px)`;
-        ctx.putImageData(canvasData, 0, 0, 0, 0, imgSize[0], imgSize[1])
-        ctx.drawImage(canvas, 0, 0);
+        if(isImgLoaded){
+            ctx.filter = `blur(${globalBlurAmnt}px)`;
+            ctx.putImageData(canvasData, 0, 0, 0, 0, imgSize[0], imgSize[1])
+            ctx.drawImage(canvas, 0, 0);
+        }
     }
-    
-    //DO NOT DELETE
-    // function sharpnessUpdate(){
-    //     // ctx.putImageData(baseBuffer, 0, 0, 0, 0, imgSize[0], imgSize[1])
-    //     Caman("#normal-canvas", function () {
-    //         this.reloadCanvasData();
-    //         // this.revert(false)
-    //         this.sharpen(sharpnessAmount).render();
-    //     });
-    //     blurUpdate()
-    // }
 
     //Updates the normal map on slider change.
     function onIntensityChange(event){
         setIntensity(event.target.value); 
-        updateNormalMap()
+        if(isImgLoaded){
+            updateNormalMap()
+        }
     }
 
     //Updates the normal map on slider change.
     function onLevelChange(event){
         setDetail(event.target.value * -1); 
-        updateNormalMap()
+        if(isImgLoaded){
+            updateNormalMap()
+        }
     }
 
-    //DO NOT DELETE
-    // function onSharpnessChange(event){
-    //     setSharpnessAmount(event.target.value)
-    //     sharpnessUpdate();
-    // }
-
+    useImperativeHandle(ref, () => ({
+        GenerateNormalMap,
+        isRenderHighRes
+    }), [])
 
     // Makes sure to update the canvas on intensity change
     useEffect(() => {
         if(isImgLoaded){
         updateNormalMap()
-        blurUpdate()
         }
      },[intensity, detail, blurAmount])
 
-
+   
 
      //Entry point.
     //This function gets called when an image is loaded.
     const onImgLoad = (event) => {
-
         //Converts the loaded "thing" into an img.
         if (event.target.files && event.target.files[0]) {
             img.src = URL.createObjectURL(event.target.files[0])
@@ -195,7 +185,7 @@ export default function NrmMapGenCanvas(props) {
         //onload is used to make sure that the img is fully loaded before any processing.
         img.onload = function () {
             isImgLoaded = true;
-            props.isImageLoaded(true)
+            props.setImageLoaded(true)
             GenerateNormalMap()
         }
     }
@@ -210,64 +200,14 @@ export default function NrmMapGenCanvas(props) {
                 Detail
                 <input type="range" min="-10" max="10" step="0.1" defaultValue={1} onChange={(event) => {onLevelChange(event)}}/>
                 Blur
-                <input type="range" min="0" max="13" step="0.0001" defaultValue={0} onChange={(event) => {setBlurAmount(event.target.value); blurUpdate(); }}/>
+                <input type="range" min="0" max="13" step="0.0001" defaultValue={0} onChange={(event) => {setBlurAmount(event.target.value); globalBlurAmnt = event.target.value; blurUpdate(); }}/>
             
-                {/* <input type="range" min="0" max="50" step="1" defaultValue={0} onChange={(event) => {onSharpnessChange(event);}}/> */}
-
                 <input style={{ color: 'white' }} id="upload-button" type="file" accept="image/*" onChange={onImgLoad} />
             </p>
             <canvas id="normal-canvas" ref={Canvas} width="250" height="250"></canvas>
+            <canvas id="highres-canvas" ref={HDCanvas} width="250" height="250"></canvas>
         </div>
     )
 }
 
-
-
-//Not working :( DO NOT DELETE
-    // function convolution(kernel) {
-    //     let sum;
-    //     let outputData = new ImageData(canvasData.width, canvasData.height)
-
-    //     //For performance reasons, we calc constant offset here
-    //     let xOffset = Math.floor(kernel.length / 2)
-    //     let yOffset = Math.floor(kernel[0].length / 2)
-
-    //     for (let row = 0; row < canvasData.height; row++) {
-    //         for (let col = 0; col < canvasData.width; col++) {
-    //             //sum for 4 pixels, although A will always be 255 in our case.
-    //             sum = [0,0,0,255];
-
-    //             for (let rowK = 0; rowK < kernel.length; rowK++) {
-    //                 for (let colK = 0; colK < kernel[rowK].length; colK++) {
-
-    //                     let pixelKRow = row + rowK - xOffset;
-    //                     let pixelKCol = col + colK - yOffset;
-    //                     let kValue = kernel[rowK][colK];
-
-    //                     if (pixelKCol < 0 || pixelKCol >= canvasData.height ||
-    //                         pixelKRow < 0 || pixelKRow >= canvasData.height) {
-    //                         continue //Skip this iteration since we are out of bounds
-    //                     }
-                        
-    //                     //Convert the row col into pixel location
-    //                     let pixLoc = (pixelKRow * canvasData.width + pixelKCol) * 4;
-                        
-    //                     //For each channel in the image (we have 4, rgba. 
-    //                     //but we skip a since its always 255)
-    //                     for(let chan = 0; chan < 3; chan++){
-    //                         sum[chan] += canvasData.data[pixLoc + chan] * kValue;
-    //                     }
-                        
-    //                 }
-    //             }
-    //             let dstLoc = (row * canvasData.width + col) * 4;
-
-    //             //For each channel in the image (we have 4, rgba. 
-    //             for (let chan = 0; chan < 4; chan++) {
-    //                 outputData.data[dstLoc + chan] = sum[chan];
-    //             }
-                
-    //         }
-    //     }
-    //     ctx.putImageData(outputData, 0, 0, 0, 0, imgSize[0], imgSize[1])
-    // }
+export default forwardRef(NrmMapGenCanvas)
