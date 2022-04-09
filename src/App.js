@@ -27,7 +27,7 @@ function App() {
       <header className="App-header">
         <div>
           <NrmMapGenCanvas setImageLoaded={setIsImageLoaded} ref={generatorRef}></NrmMapGenCanvas>
-          <DownloadButton renderHighRes={renderHighRes}></DownloadButton>
+          <DownloadButton renderHighRes={renderHighRes} isImageLoaded={isImageLoaded}></DownloadButton>
         </div>
       </header>
     </div>

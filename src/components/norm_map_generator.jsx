@@ -36,7 +36,7 @@ function NrmMapGenCanvas(props, ref){
      * Pretty sure there is a shorter way to write this.
      */
     function getBestSize(){
-        let targetSize = 600;
+        let targetSize = 1000;
         if(img.width > img.height && img.width > targetSize){
             // let ratio = img.width/img.height
             let rescaleFactor = img.width / targetSize
@@ -137,22 +137,27 @@ function NrmMapGenCanvas(props, ref){
 
     //Blurs the canvas contents.
     function blurUpdate(){
-        ctx.filter = `blur(${globalBlurAmnt}px)`;
-        ctx.putImageData(canvasData, 0, 0, 0, 0, imgSize[0], imgSize[1])
-        ctx.drawImage(canvas, 0, 0);
-        
+        if(isImgLoaded){
+            ctx.filter = `blur(${globalBlurAmnt}px)`;
+            ctx.putImageData(canvasData, 0, 0, 0, 0, imgSize[0], imgSize[1])
+            ctx.drawImage(canvas, 0, 0);
+        }
     }
 
     //Updates the normal map on slider change.
     function onIntensityChange(event){
         setIntensity(event.target.value); 
-        updateNormalMap()
+        if(isImgLoaded){
+            updateNormalMap()
+        }
     }
 
     //Updates the normal map on slider change.
     function onLevelChange(event){
         setDetail(event.target.value * -1); 
-        updateNormalMap()
+        if(isImgLoaded){
+            updateNormalMap()
+        }
     }
 
     useImperativeHandle(ref, () => ({
@@ -180,6 +185,7 @@ function NrmMapGenCanvas(props, ref){
         //onload is used to make sure that the img is fully loaded before any processing.
         img.onload = function () {
             isImgLoaded = true;
+            props.setImageLoaded(true)
             GenerateNormalMap()
         }
     }
