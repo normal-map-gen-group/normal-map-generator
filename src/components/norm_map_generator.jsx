@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect, forwardRef, useImperativeHandle } from 'react';
-import DownloadButton from '../components/download_button';
 import '../css/norm_map_generator.css';
 import SliderWrapper from './slider_wrapper';
 import UploadButton from './upload_button';
