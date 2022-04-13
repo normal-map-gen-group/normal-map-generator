@@ -195,13 +195,10 @@ function NrmMapGenCanvas(props, ref){
     //HTML elements of this component.
     return (
         <div id="canvas-container">
-            <p>Upload Image:
-                Intensity
-                <SliderWrapper min_value={0.00001} max_value={0.05} step_value={0.0001} default_value={0.01} funcForThis={(event) => {onIntensityChange(event)}} />
-                Detail
-                <SliderWrapper min_value={-10} max_value={10} step_value={0.1} default_value={1} funcForThis={(event) => {onLevelChange(event)}} />
-                Blur
-                <SliderWrapper min_value={0} max_value={13} step_value={0.0001} default_value={0} funcForThis={(event) => {setBlurAmount(event.target.value); globalBlurAmnt = event.target.value; blurUpdate();}} />
+            <p>
+                <SliderWrapper name_value="Intensity" min_value={0.00001} max_value={0.05} step_value={0.0001} default_value={0.01} funcForThis={(event) => {onIntensityChange(event)}} />
+                <SliderWrapper name_value="Detail" min_value={-10} max_value={10} step_value={0.1} default_value={1} funcForThis={(event) => {onLevelChange(event)}} />
+                <SliderWrapper name_value="Blur" min_value={0} max_value={13} step_value={0.0001} default_value={0} funcForThis={(event) => {setBlurAmount(event.target.value); globalBlurAmnt = event.target.value; blurUpdate();}} />
 
                 <UploadButton color="white" changeFunc={onImgLoad} />
             </p>

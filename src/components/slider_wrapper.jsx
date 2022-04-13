@@ -3,20 +3,24 @@ import PropTypes from 'prop-types';
 
 const SliderWrapper = props => {
     return (
-    <input 
-        type="range"
-        {...props}
-        min={props.min_value}
-        max={props.max_value}
-        step={props.step_value}
-        defaultValue={props.default_value}
-        onChange={props.funcForThis}
-    />
+        <div>
+            {props.name_value}
+            <input 
+                type="range"
+                {...props}
+                min={props.min_value}
+                max={props.max_value}
+                step={props.step_value}
+                defaultValue={props.default_value}
+                onChange={props.funcForThis}
+            />
+        </div>
     );
 };
 
 SliderWrapper.propTypes = {
     children: PropTypes.node,
+    name_value: PropTypes.string,
     min_value: PropTypes.number,
     max_value: PropTypes.number,
     step_value: PropTypes.number,
