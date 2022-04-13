@@ -46,7 +46,7 @@
   display: inline-block;
 }
 
-#main-title{
+#splash-title{
   font-size: 70px;
   word-spacing: absolute;
   text-align: center;
@@ -57,13 +57,13 @@
   margin-bottom: 50px; /* between paragraphs */
 }
 
-p {
+#splash-text {
   text-align: center;
   text-decoration: none;
   display: block;
   font-family: 'Trebuchet MS', sans-serif, Helvetica, sans-serif;
   line-height: 0px;   /* within paragraph */
-  margin-bottom: 0px; /* between paragraphs */
+  margin-bottom: 50px; /* between paragraphs */
   }
 
 h1 {

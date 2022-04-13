@@ -1,14 +1,13 @@
 import React, { useRef, useState} from 'react';
 
-import './css/App.css';
-import NrmMapGenCanvas from "./components/norm_map_generator"
-import DownloadButton from './components/download_button';
+import '../css/App.css';
+import NrmMapGenCanvas from "../components/norm_map_generator";
+import DownloadButton from '../components/download_button';
 
 //NOTE::Element id/class naming conventions to make our lives easier when writing css.
 //Use all lower case and seperate words with a dash. Example: id="upload-button"
 
-function App() {
-  
+function MainScreen() {  
   const generatorRef = useRef()
   const [isImageLoaded, setIsImageLoaded] = useState(0) 
 
@@ -34,4 +33,4 @@ function App() {
   );  
 }
 
-export default App;
+export default MainScreen;
