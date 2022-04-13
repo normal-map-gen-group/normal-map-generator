@@ -1,23 +1,22 @@
 import React from 'react';
 
-import '../css/splash_screen.css';
-import SplashUploadButton from '../components/splash_upload_button';
+import '../css/perspective_fixer.css';
 
 //NOTE::Element id/class naming conventions to make our lives easier when writing css.
 //Use all lower case and seperate words with a dash. Example: id="upload-button"
 
-class SplashScreen extends React.Component {
+class PerspectiveFixer extends React.Component {
   constructor(props) {
     super(props);
     this.handleSceneChange = this.handleSceneChange.bind(this);
   }
 
   handleSceneChange(e) {
-    this.props.onSceneChange("PerspectiveFixer");
+    this.props.onSceneChange("MainScreen");
   }
 
   get show() {
-    return this.props.activeScene === "SplashScreen";
+    return this.props.activeScene === "PerspectiveFixer";
   }
 
   render() {
@@ -25,10 +24,10 @@ class SplashScreen extends React.Component {
         return (
             <div className="App">
             <header className="App-header">
-                <div id="splash-title">Normal Map Generator</div>
-                <div id="splash-text">To begin, upload an image:</div>
+                <div id="perspective-title">Normal Map Generator</div>
+                <div id="perspective-fixer"></div>
                 <div>
-                  <a className="waves-effect waves-light btn-large" id="splash-upload-button" onClick={this.handleSceneChange}>Upload Image</a>
+                  <a className="waves-effect waves-light btn-large" id="splash-upload-button" onClick={this.handleSceneChange}>Continue</a>
                 </div>
             </header>
             </div>
@@ -39,4 +38,4 @@ class SplashScreen extends React.Component {
   }
 }
 
-export default SplashScreen;
+export default PerspectiveFixer;
