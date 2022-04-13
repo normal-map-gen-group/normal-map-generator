@@ -54,7 +54,7 @@
   display: block;
   font-family: 'Trebuchet MS', sans-serif, Helvetica, sans-serif;
   line-height: 32px;   /* within paragraph */
-  margin-bottom: 50px; /* between paragraphs */
+  margin-bottom: 100px; /* between paragraphs */
 }
 
 #splash-text {
@@ -63,7 +63,7 @@
   display: block;
   font-family: 'Trebuchet MS', sans-serif, Helvetica, sans-serif;
   line-height: 0px;   /* within paragraph */
-  margin-bottom: 50px; /* between paragraphs */
+  margin-bottom: 100px; /* between paragraphs */
   }
 
 h1 {

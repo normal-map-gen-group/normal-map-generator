@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import '../css/App.css';
 
 import SplashScreen from '../scenes/splash_screen';
-//import MainScreen from '../scenes/MainScreen';
+import MainScreen from '../scenes/main_screen';
 
 //NOTE::Element id/class naming conventions to make our lives easier when writing css.
 //Use all lower case and seperate words with a dash. Example: id="upload-button"
 
-const Main = ({ activeScene }) => (
+const Main = ({ activeScene, handleSceneChange }) => (
   <React.Fragment>
-    <SplashScreen activeScene={activeScene} />
+    <SplashScreen activeScene={activeScene}  handleSceneChange={handleSceneChange} />
+    <MainScreen activeScene={activeScene}  handleSceneChange={handleSceneChange} />
   </React.Fragment>
 );
 
@@ -34,7 +35,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Main activeScene={this.state.activeScene} />
+        <Main activeScene={this.state.activeScene} handleSceneChange={this.state.handleSceneChange}/>
       </div>
     );
   }

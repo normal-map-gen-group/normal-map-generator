@@ -17,9 +17,9 @@ class SplashScreen extends React.Component {
             <div className="App">
             <header className="App-header">
                 <div id="splash-title">Normal Map Generator</div>
-                <div id="splash-text">To Begin, upload an image:</div>
+                <div id="splash-text">To begin, upload an image:</div>
                 <div>
-                    <SplashUploadButton />
+                    <SplashUploadButton onClick={this.props.handleSceneChange} />
                 </div>
             </header>
             </div>
