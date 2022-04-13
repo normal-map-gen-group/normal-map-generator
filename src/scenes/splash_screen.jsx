@@ -7,6 +7,15 @@ import SplashUploadButton from '../components/splash_upload_button';
 //Use all lower case and seperate words with a dash. Example: id="upload-button"
 
 class SplashScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleSceneChange = this.handleSceneChange.bind(this);
+  }
+
+  handleSceneChange(e) {
+    this.props.onSceneChange(e.target.value);
+  }
+
   get show() {
     return this.props.activeScene === "SplashScreen";
   }
@@ -19,7 +28,7 @@ class SplashScreen extends React.Component {
                 <div id="splash-title">Normal Map Generator</div>
                 <div id="splash-text">To begin, upload an image:</div>
                 <div>
-                    <SplashUploadButton onClick={this.props.handleSceneChange} />
+                    <SplashUploadButton onClick={this.handleSceneChange} />
                 </div>
             </header>
             </div>
