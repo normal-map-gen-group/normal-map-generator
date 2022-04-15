@@ -22,14 +22,17 @@ class PerspectiveFixer extends React.Component {
   render() {
     if (this.show) {
         return (
-            <div className="App">
-            <header className="App-header">
-                <div id="perspective-title">Normal Map Generator</div>
-                <div id="perspective-fixer"></div>
-                <div>
+            <div className= "App" >
+              <div class = "App-headerTop" >
+                <div id ="perspective-title" >Normal Map Generator</div>
+            
+                <div id="perspective-fixer">this div</div>
+                <div class = "continueBtnBtm">
                   <a className="waves-effect waves-light btn-large" id="splash-upload-button" onClick={this.handleSceneChange}>Continue</a>
                 </div>
-            </header>
+              </div> 
+
+
             </div>
         );
         } else {

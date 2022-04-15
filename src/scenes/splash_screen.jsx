@@ -23,14 +23,14 @@ class SplashScreen extends React.Component {
   render() {
     if (this.show) {
         return (
-            <div className="App">
-            <header className="App-header">
+            <div class="App">
+            <div class="App-header">
                 <div id="splash-title">Normal Map Generator</div>
                 <div id="splash-text">To begin, upload an image:</div>
                 <div>
                   <a className="waves-effect waves-light btn-large" id="splash-upload-button" onClick={this.handleSceneChange}>Upload Image</a>
                 </div>
-            </header>
+            </div>
             </div>
         );
         } else {

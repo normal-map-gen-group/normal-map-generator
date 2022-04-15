@@ -42,9 +42,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
         <Main activeScene={this.state.activeScene} handleSceneChange={this.handleSceneChange} />
-      </div>
     );
   }
 }

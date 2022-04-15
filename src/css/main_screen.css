@@ -1,23 +1,13 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,100,900);
 
 
-#perspective-title{
+#main-title{
   font-size: 70px;
   word-spacing: absolute;
   text-align: center;
   text-decoration: none;
   display: block;
 }
-
-#perspective-fixer {
-  text-align: center;
-  text-decoration: none;
-  display: block;
-  font-family: 'Trebuchet MS', sans-serif, Helvetica, sans-serif;
-  width: 300px;
-  height: 300px;
-  background-color: coral;
-  }
 
 .containerdiv {
   height: 100%;
@@ -29,9 +19,9 @@
   background-color: lightskyblue;
 }
 
-.continueBtnBtm{
-  display: flex;
-  position: absolute;
-
-  bottom: 50px;
-}
+.downloadBtnBtm{
+    display: flex;
+    position: absolute;
+  
+    bottom: 50px;
+  }
