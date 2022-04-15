@@ -4,6 +4,7 @@ import '../css/App.css';
 import '../css/main_screen.css';
 import NrmMapGenCanvas from "../components/norm_map_generator";
 import DownloadButton from '../components/download_button';
+import MainUploadButton from '../components/main_upload_button';
 
 //NOTE::Element id/class naming conventions to make our lives easier when writing css.
 //Use all lower case and seperate words with a dash. Example: id="upload-button"
@@ -36,7 +37,10 @@ function MainScreen (props){
       <div className="App">
         <div class = "App-headerTop">
             <div id = "main-title">Normal Map Generator</div>
+            
+            <div class = "mainContainer">
             <NrmMapGenCanvas setImageLoaded={setIsImageLoaded} ref={generatorRef}></NrmMapGenCanvas>
+            </div>
             <div class="downloadBtnBtm"><DownloadButton renderHighRes={renderHighRes} isImageLoaded={isImageLoaded}></DownloadButton></div>
         </div>
       </div>

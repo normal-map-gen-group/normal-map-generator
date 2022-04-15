@@ -26,7 +26,7 @@ class PerspectiveFixer extends React.Component {
               <div class = "App-headerTop" >
                 <div id ="perspective-title" >Normal Map Generator</div>
             
-                <div id="perspective-fixer">this div</div>
+                <div id="perspective-fixer">The CSS should allow the perspective tool to land in the middle of the page</div>
                 <div class = "continueBtnBtm">
                   <a className="waves-effect waves-light btn-large" id="splash-upload-button" onClick={this.handleSceneChange}>Continue</a>
                 </div>

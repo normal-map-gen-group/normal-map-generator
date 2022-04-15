@@ -19,3 +19,10 @@ canvas{
   margin-top: 20px;
   margin-bottom: 150px;
 }
+
+
+#mapcontainer{
+  align-self: center;
+  display: block;
+  text-align: center;
+}

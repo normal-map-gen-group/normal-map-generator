@@ -195,13 +195,17 @@ function NrmMapGenCanvas(props, ref){
     //HTML elements of this component.
     return (
         <div id="canvas-container">
-            <p>
+            <div>
+                <UploadButton changeFunc={onImgLoad} />
+                <a className="waves-effect waves-light btn-large" id="main-upload-button" changeFunc={onImgLoad}>Upload New Image</a>
+            </div>
+            
+           
                 <SliderWrapper name_value="Intensity" min_value={0.00001} max_value={0.05} step_value={0.0001} default_value={0.01} funcForThis={(event) => {onIntensityChange(event)}} />
                 <SliderWrapper name_value="Detail" min_value={-10} max_value={10} step_value={0.1} default_value={1} funcForThis={(event) => {onLevelChange(event)}} />
                 <SliderWrapper name_value="Blur" min_value={0} max_value={13} step_value={0.0001} default_value={0} funcForThis={(event) => {setBlurAmount(event.target.value); globalBlurAmnt = event.target.value; blurUpdate();}} />
 
-                <UploadButton color="white" changeFunc={onImgLoad} />
-            </p>
+           
             <canvas id="normal-canvas" ref={Canvas} width="250" height="250"></canvas>
             <canvas id="highres-canvas" ref={HDCanvas} width="250" height="250"></canvas>
         </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import '../css/splash_upload_button.css';
+import '../css/upload_button.css';
 
 const SplashUploadButton = (props) => {
 
@@ -9,4 +9,4 @@ const SplashUploadButton = (props) => {
   )
 };
 
-export default SplashUploadButton
+export default SplashUploadButton 

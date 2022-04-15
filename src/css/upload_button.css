@@ -1,24 +1,67 @@
 
 #upload-button {
     position:center;
-    top: 50px;
     font-family: 'Trebuchet MS', sans-serif, Helvetica, sans-serif;
     border: none;
     color: white;
-    padding: 18px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
+    padding: 14px;
     font-size: 16px;
-    margin: 40px 20px;
     cursor: pointer;
     border-radius: 15px;
     transition-duration: .5s;
-    background-color: transparent; 
+    background-color: black; 
     color: black; 
     border: 2px solid #04AA6D;
+    opacity:20;
+    margin-left: 22px;
+    width: 200px;
   }
 
 #upload-button:hover {
 background-color: #04AA6D;
   }
+
+
+#main-upload-button {
+    position:center;
+    font-family: 'Trebuchet MS', sans-serif, Helvetica, sans-serif;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 15px;
+    transition-duration: .5s;
+    background-color: transparent; 
+    color: #FFFFFF; 
+    border: 2px solid #04AA6D;
+}
+
+#main-upload-button:hover {
+  background-color: #04AA6D;
+  }
+
+
+
+#splash-upload-button {
+    position:center;
+    font-family: 'Trebuchet MS', sans-serif, Helvetica, sans-serif;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 15px;
+    transition-duration: .5s;
+    background-color: #04AA6D; 
+    color: #FFFFFF; 
+    border: 2px solid #04AA6D;
+}
+
+#splash-upload-button:hover {
+  background-color: #04aa6d75;
+}
+
+
