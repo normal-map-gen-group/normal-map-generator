@@ -1,96 +1,41 @@
-import React, { useCallback, useRef, useState } from 'react'
-import { Button, Spin, Upload } from 'antd'
-import { CheckOutlined, PlusOutlined } from '@ant-design/icons'
-import Cropper from 'react-perspective-cropper'
+import React from 'react';
 
 import '../css/perspective_fixer.css';
-import Header from '../components/Header'
 
-const { Dragger } = Upload
+//NOTE::Element id/class naming conventions to make our lives easier when writing css.
+//Use all lower case and seperate words with a dash. Example: id="upload-button"
 
-const PerspectiveFixer = () => {
-  const [cropState, setCropState] = useState()
-  const [img, setImg] = useState()
-  const cropperRef = useRef()
+class PerspectiveFixer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleSceneChange = this.handleSceneChange.bind(this);
+  }
 
-  const onDragStop = useCallback((s) => setCropState(s), [])
-  const onChange = useCallback((s) => setCropState(s), [])
+  handleSceneChange(e) {
+    this.props.onSceneChange("MainScreen");
+  }
 
-  const doSomething = async () => {
-    console.log('CropState', cropState)
-    try {
-      const res = await cropperRef.current.done({
-        preview: true,
-        filterCvParams: {
-          thMeanCorrection: 13,
-          thMode: window.cv.ADAPTIVE_THRESH_GAUSSIAN_C
+  get show() {
+    return this.props.activeScene === "PerspectiveFixer";
+  }
+
+  render() {
+    if (this.show) {
+        return (
+            <div className="App">
+            <header className="App-header">
+                <div id="perspective-title">Normal Map Generator</div>
+                <div id="perspective-fixer"></div>
+                <div>
+                  <a className="waves-effect waves-light btn-large" id="splash-upload-button" onClick={this.handleSceneChange}>Continue</a>
+                </div>
+            </header>
+            </div>
+        );
+        } else {
+            return null;
         }
-      })
-      console.log('Cropped and filtered image', res)
-    } catch (e) {
-      console.log('error', e)
-    }
   }
-
-  const onImgSelection = async (e) => {
-    if (e.fileList && e.fileList.length > 0) {
-      // it can also be a http or base64 string for example
-      setImg(e.fileList[0].originFileObj)
-    }
-  }
-
-  const draggerProps = {
-    name: 'file',
-    multiple: false,
-    onChange: onImgSelection
-  }
-
-  return (
-    <div className='root-container'>
-      <Header />
-      <div className='content-container'>
-        {cropState && (
-          <div className='buttons-container'>
-            <Button onClick={doSomething} icon={<CheckOutlined />}>
-              Done
-            </Button>
-            <Button
-              onClick={() => {
-                cropperRef.current.backToCrop()
-              }}
-            >
-              Back
-            </Button>
-            <Button
-              onClick={() => {
-                setImg(undefined)
-                setCropState()
-              }}
-            >
-              Reset
-            </Button>
-          </div>
-        )}
-        <Cropper
-          openCvPath='./opencv/opencv.js'
-          ref={cropperRef}
-          image={img}
-          onChange={onChange}
-          onDragStop={onDragStop}
-          maxWidth={window.innerWidth - 10}
-        />
-        {cropState?.loading && <Spin />}
-        {!img && (
-          <Dragger {...draggerProps}>
-            <p>
-              <PlusOutlined />
-            </p>
-            <p>Upload</p>
-          </Dragger>
-        )}
-      </div>
-    </div>
-  )
 }
 
-export default PerspectiveFixer
+export default PerspectiveFixer;
