@@ -11,10 +11,13 @@
     "canvas": "^2.9.0",
     "canvas-to-image": "^2.0.6",
     "materialize-css": "^1.0.0-rc.2",
+    "opencv-react": "0.0.5",
     "postscribe": "^2.0.8",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-draggable": "^4.4.4",
     "react-helmet": "^6.1.0",
+    "react-perspective-cropper": "^0.2.1",
     "react-scripts": "^3.0.1",
     "web-vitals": "^2.1.0"
   },

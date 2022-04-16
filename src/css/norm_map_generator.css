@@ -11,7 +11,7 @@
   display:none;
 }
 
-canvas{
+#normal-canvas{
   margin-right: auto;
   margin-left: auto;
   display: inline-block;

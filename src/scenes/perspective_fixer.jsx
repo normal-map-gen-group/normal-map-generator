@@ -1,96 +1,74 @@
-import React, { useCallback, useRef, useState } from 'react'
-import { Button, Spin, Upload } from 'antd'
-import { CheckOutlined, PlusOutlined } from '@ant-design/icons'
-import Cropper from 'react-perspective-cropper'
+import React, { useRef, useState, useCallback } from 'react';
+import Cropper from '../components/cropper/Cropper'
+import '../css/perspective_fixer.css';
 
-import '../css/perspective_fixer.css'
-import Header from '../components/Header'
 
-const { Dragger } = Upload
+//NOTE::Element id/class naming conventions to make our lives easier when writing css.
+//Use all lower case and seperate words with a dash. Example: id="upload-button"
 
-const PerspectiveFixer = () => {
+function PerspectiveFixer (props){
+
   const [cropState, setCropState] = useState()
   const [img, setImg] = useState()
+  const [inputKey, setInputKey] = useState(0)
   const cropperRef = useRef()
 
   const onDragStop = useCallback((s) => setCropState(s), [])
   const onChange = useCallback((s) => setCropState(s), [])
 
   const doSomething = async () => {
-    console.log('CropState', cropState)
+    console.log(cropState)
     try {
-      const res = await cropperRef.current.done({
-        preview: true,
-        filterCvParams: {
-          thMeanCorrection: 13,
-          thMode: window.cv.ADAPTIVE_THRESH_GAUSSIAN_C
-        }
-      })
-      console.log('Cropped and filtered image', res)
+      const res = await cropperRef.current.done({ preview: true })
+      console.log(res)
     } catch (e) {
       console.log('error', e)
     }
   }
 
   const onImgSelection = async (e) => {
-    if (e.fileList && e.fileList.length > 0) {
+    if (e.target.files && e.target.files.length > 0) {
       // it can also be a http or base64 string for example
-      setImg(e.fileList[0].originFileObj)
+      setImg(e.target.files[0])
     }
   }
 
-  const draggerProps = {
-    name: 'file',
-    multiple: false,
-    onChange: onImgSelection
+  function handleSceneChange(e) {
+    props.onSceneChange("MainScreen");
   }
 
-  return (
-    <div className='root-container'>
-      <Header />
-      <div className='content-container'>
-        {cropState && (
-          <div className='buttons-container'>
-            <Button onClick={doSomething} icon={<CheckOutlined />}>
-              Done
-            </Button>
-            <Button
-              onClick={() => {
-                cropperRef.current.backToCrop()
-              }}
-            >
-              Back
-            </Button>
-            <Button
-              onClick={() => {
-                setImg(undefined)
-                setCropState()
-              }}
-            >
-              Reset
-            </Button>
+  function show() {
+    return props.activeScene === "PerspectiveFixer";
+  }
+
+  if (show()) {
+    return (
+      <div className="App">
+          <div id="perspective-title">Normal Map Generator</div>
+
+          <Cropper
+            ref={cropperRef}
+            image={img}
+            onChange={onChange}
+            onDragStop={onDragStop}
+            maxWidth={500 - 10}
+          />
+          <input
+            type='file'
+            key={inputKey}
+            onChange={onImgSelection}
+            accept='image/*'
+          />
+          <button onClick={doSomething}>Fix Perspective</button>
+
+          <div>
+            <a className="waves-effect waves-light btn-large" id="splash-upload-button" onClick={handleSceneChange}>Continue</a>
           </div>
-        )}
-        <Cropper
-          openCvPath='./opencv/opencv.js'
-          ref={cropperRef}
-          image={img}
-          onChange={onChange}
-          onDragStop={onDragStop}
-          maxWidth={window.innerWidth - 10}
-        />
-        {cropState?.loading && <Spin />}
-        {!img && (
-          <Dragger {...draggerProps}>
-            <p>
-              <PlusOutlined />
-            </p>
-            <p>Upload</p>
-          </Dragger>
-        )}
       </div>
-    </div>
-  )
+    );
+  } else {
+    return null;
+  }
 }
 
-export default PerspectiveFixer
+export default PerspectiveFixer;
