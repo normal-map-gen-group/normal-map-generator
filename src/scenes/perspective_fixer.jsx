@@ -51,13 +51,13 @@ function PerspectiveFixer (props){
           <header className='perspective-header'>
             <div id="perspective-title">Normal Map Generator</div>
             <div class='centered'>
-            <Cropper
-              ref={cropperRef}
-              image={img}
-              onChange={onChange}
-              onDragStop={onDragStop}
-              maxWidth={500}
-            />
+              <Cropper
+                ref={cropperRef}
+                image={img}
+                onChange={onChange}
+                onDragStop={onDragStop}
+                maxWidth={500}
+              />
             </div>
           
             <UploadButton id='cropper' color="white" changeFunc={onImgSelection} />
