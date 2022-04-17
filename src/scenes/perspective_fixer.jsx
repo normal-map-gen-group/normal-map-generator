@@ -51,7 +51,7 @@ function PerspectiveFixer (props){
             image={img}
             onChange={onChange}
             onDragStop={onDragStop}
-            maxWidth={500 - 10}
+            maxWidth={500}
           />
           <input
             type='file'
