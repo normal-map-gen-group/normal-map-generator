@@ -10,6 +10,32 @@
   display: block;
   font-family: 'Trebuchet MS', sans-serif, Helvetica, sans-serif;
   line-height: 32px;   /* within paragraph */
-  margin-bottom: 50px; /* between paragraphs */
+  margin-bottom: 100px; /* between paragraphs */
+  margin-top: 50px;
 }
 
+#cropper {
+  margin-bottom: 75px;
+  margin-top: 50px;
+  line-height: 32px;
+  font-size: calc(1px + 2vmin);
+}
+
+.centered {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.perspective-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}

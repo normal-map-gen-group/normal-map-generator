@@ -1,6 +1,7 @@
 import React, { useRef, useState, useCallback } from 'react';
 import Cropper from '../components/cropper/Cropper'
 import '../css/perspective_fixer.css';
+import UploadButton from '../components/upload_button';
 
 
 //NOTE::Element id/class naming conventions to make our lives easier when writing css.
@@ -21,6 +22,7 @@ function PerspectiveFixer (props){
     try {
       const res = await cropperRef.current.done({ preview: true })
       console.log(res)
+      handleSceneChange()
     } catch (e) {
       console.log('error', e)
     }
@@ -41,29 +43,27 @@ function PerspectiveFixer (props){
     return props.activeScene === "PerspectiveFixer";
   }
 
+  const image = new Image()
+
   if (show()) {
     return (
       <div className="App">
-          <div id="perspective-title">Normal Map Generator</div>
+          <header className='perspective-header'>
+            <div id="perspective-title">Normal Map Generator</div>
+            <div class='centered'>
+            <Cropper
+              ref={cropperRef}
+              image={img}
+              onChange={onChange}
+              onDragStop={onDragStop}
+              maxWidth={500}
+            />
+            </div>
+          
+            <UploadButton id='cropper' color="white" changeFunc={onImgSelection} />
 
-          <Cropper
-            ref={cropperRef}
-            image={img}
-            onChange={onChange}
-            onDragStop={onDragStop}
-            maxWidth={500}
-          />
-          <input
-            type='file'
-            key={inputKey}
-            onChange={onImgSelection}
-            accept='image/*'
-          />
-          <button onClick={doSomething}>Fix Perspective</button>
-
-          <div>
-            <a className="waves-effect waves-light btn-large" id="splash-upload-button" onClick={handleSceneChange}>Continue</a>
-          </div>
+            <a className="waves-effect waves-light btn-large" id="splash-upload-button" onClick={doSomething}>Continue</a> 
+          </header>                   
       </div>
     );
   } else {
