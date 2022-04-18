@@ -5,16 +5,8 @@ const SliderWrapper = props => {
     return (
     <div>
         {props.name_value}
-        <input 
-            className="slider-wrapper"
-            type="range"
-            {...props}
-            min={props.min_value}
-            max={props.max_value}
-            step={props.step_value}
-            defaultValue={props.default_value}
-            onChange={props.funcForThis}
-        />
+            <input className="slider-wrapper" type="range" min={props.min_value} max={props.max_value} step={props.step_value} 
+                    defaultValue={props.default_value} onChange={props.funcforthis}/>
     </div>
     );
 };

@@ -10,7 +10,7 @@ import DownloadButton from '../components/download_button';
 function MainScreen (props){
 
   function handleSceneChange(e) {
-    props.onSceneChange("SplashScreen");
+    props.onSceneChange();
   }
 
   const generatorRef = useRef()
@@ -24,7 +24,6 @@ function MainScreen (props){
     generatorRef.current.GenerateNormalMap()
   }
 
-
   function show() {
     return props.activeScene === "MainScreen";
   }
@@ -37,8 +36,8 @@ function MainScreen (props){
         <header className="App-header">
           <div>
             <div id="splash-title">Normal Map Generator</div>
-            <NrmMapGenCanvas setImageLoaded={setIsImageLoaded} ref={generatorRef}></NrmMapGenCanvas>
-            <DownloadButton renderHighRes={renderHighRes} isImageLoaded={isImageLoaded}></DownloadButton>
+            <NrmMapGenCanvas baseImage={props.baseImage} setImageLoaded={setIsImageLoaded} ref={generatorRef}></NrmMapGenCanvas>
+            <DownloadButton renderHighRes={renderHighRes}></DownloadButton>
           </div>
         </header>
       </div>

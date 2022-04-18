@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback } from 'react';
+import React, { useRef, useState, useCallback, useEffect } from 'react';
 import Cropper from '../components/cropper/Cropper'
 import '../css/perspective_fixer.css';
 import UploadButton from '../components/upload_button';
@@ -6,35 +6,28 @@ import UploadButton from '../components/upload_button';
 
 //NOTE::Element id/class naming conventions to make our lives easier when writing css.
 //Use all lower case and seperate words with a dash. Example: id="upload-button"
-
 function PerspectiveFixer (props){
 
   const [cropState, setCropState] = useState()
-  const [img, setImg] = useState()
+  const [getImage, setGetImage] = useState(false)
   const cropperRef = useRef()
 
   const onDragStop = useCallback((s) => setCropState(s), [])
   const onChange = useCallback((s) => setCropState(s), [])
+
 
   const doSomething = async () => {
     console.log(cropState)
     try {
       const res = await cropperRef.current.done({ preview: true })
       console.log(res)
-      handleSceneChange()
+      props.baseImage.src = document.getElementById("perspective-fixer").toDataURL();
     } catch (e) {
       console.log('error', e)
     }
   }
-
-  const onImgSelection = async (e) => {
-    if (e.target.files && e.target.files.length > 0) {
-      // it can also be a http or base64 string for example
-      setImg(e.target.files[0])
-    }
-  }
-
-  function handleSceneChange(e) {
+  
+  function handleSceneChange() {
     props.onSceneChange("MainScreen");
   }
 
@@ -47,19 +40,19 @@ function PerspectiveFixer (props){
       <div className="App">
           <header className='perspective-header'>
             <div id="perspective-title">Normal Map Generator</div>
-            <div class='centered'>
+            <div className='centered'>
               <Cropper
                 ref={cropperRef}
-                image={img}
+                image={props.baseImage.src}
                 onChange={onChange}
                 onDragStop={onDragStop}
-                maxWidth={500}
+                maxWidth={1000}
               />
             </div>
-          
-            <UploadButton id='cropper' color="white" changeFunc={onImgSelection} />
-
-            <button className="waves-effect waves-light btn-large" id="splash-upload-button" onClick={doSomething}>Continue</button> 
+          <div>
+            <button className="waves-effect waves-light btn-large continue" onClick={doSomething}>Crop</button>
+            <button className="waves-effect waves-light btn-large continue" onClick={handleSceneChange}>Continue</button>
+          </div> 
           </header>                   
       </div>
     );

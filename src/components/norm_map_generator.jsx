@@ -12,7 +12,7 @@ let ctx = null
 let canvasData = null //TODO::This step may not be needed.
 let imgSize = [0,0]
 let orgSize = [0,0]
-let isImgLoaded = false;
+let isImgLoaded = true;
 let dZ = 1
 let globalBlurAmnt = 0;
 
@@ -23,7 +23,7 @@ function NrmMapGenCanvas(props, ref){
     
     // let Caman = window.Caman
     let cv = window.cv //Load opencv.
-    
+    img.src = props.baseImage.src;
     const Canvas = useRef() //React ref to get the canvas.
     const HDCanvas = useRef()
     const isRenderHighRes = useRef(false);
@@ -138,27 +138,21 @@ function NrmMapGenCanvas(props, ref){
 
     //Blurs the canvas contents.
     function blurUpdate(){
-        if(isImgLoaded){
-            ctx.filter = `blur(${globalBlurAmnt}px)`;
-            ctx.putImageData(canvasData, 0, 0, 0, 0, imgSize[0], imgSize[1])
-            ctx.drawImage(canvas, 0, 0);
-        }
+        ctx.filter = `blur(${globalBlurAmnt}px)`;
+        ctx.putImageData(canvasData, 0, 0, 0, 0, imgSize[0], imgSize[1])
+        ctx.drawImage(canvas, 0, 0);
     }
 
     //Updates the normal map on slider change.
     function onIntensityChange(event){
-        setIntensity(event.target.value); 
-        if(isImgLoaded){
-            updateNormalMap()
-        }
+        setIntensity(event.target.value);
+        updateNormalMap()
     }
 
     //Updates the normal map on slider change.
     function onLevelChange(event){
         setDetail(event.target.value * -1); 
-        if(isImgLoaded){
-            updateNormalMap()
-        }
+        updateNormalMap()
     }
 
     useImperativeHandle(ref, () => ({
@@ -168,38 +162,22 @@ function NrmMapGenCanvas(props, ref){
 
     // Makes sure to update the canvas on intensity change
     useEffect(() => {
-        if(isImgLoaded){
-        updateNormalMap()
+        if(ctx == null){
+            GenerateNormalMap()
         }
+        updateNormalMap()
      },[intensity, detail, blurAmount])
 
    
 
-     //Entry point.
-    //This function gets called when an image is loaded.
-    const onImgLoad = (event) => {
-        //Converts the loaded "thing" into an img.
-        if (event.target.files && event.target.files[0]) {
-            img.src = URL.createObjectURL(event.target.files[0])
-        }
-
-        //onload is used to make sure that the img is fully loaded before any processing.
-        img.onload = function () {
-            isImgLoaded = true;
-            props.setImageLoaded(true)
-            GenerateNormalMap()
-        }
-    }
-
-
     //HTML elements of this component.
     return (
         <div id="canvas-container">
-            <p>
-                <SliderWrapper name_value="Intensity" min_value={0.00001} max_value={0.05} step_value={0.0001} default_value={0.01} funcForThis={(event) => {onIntensityChange(event)}} />
-                <SliderWrapper name_value="Detail" min_value={-10} max_value={10} step_value={0.1} default_value={1} funcForThis={(event) => {onLevelChange(event)}} />
-                <SliderWrapper name_value="Blur" min_value={0} max_value={13} step_value={0.0001} default_value={0} funcForThis={(event) => {setBlurAmount(event.target.value); globalBlurAmnt = event.target.value; blurUpdate();}} />                
-            </p>
+
+            <SliderWrapper name_value="Intensity" min_value={0.00001} max_value={0.05} step_value={0.0001} default_value={0.01} funcforthis={(event) => { onIntensityChange(event) }} />
+            <SliderWrapper name_value="Detail" min_value={-10} max_value={10} step_value={0.1} default_value={1} funcforthis={(event) => { onLevelChange(event) }} />
+            <SliderWrapper name_value="Blur" min_value={0} max_value={13} step_value={0.0001} default_value={0} funcforthis={(event) => { setBlurAmount(event.target.value); globalBlurAmnt = event.target.value; blurUpdate(); }} />
+
             <canvas id="normal-canvas" ref={Canvas} width="250" height="250"></canvas>
             <canvas id="highres-canvas" ref={HDCanvas} width="250" height="250"></canvas>
         </div>
