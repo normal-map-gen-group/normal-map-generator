@@ -11,7 +11,6 @@ function PerspectiveFixer (props){
 
   const [cropState, setCropState] = useState()
   const [img, setImg] = useState()
-  const [inputKey, setInputKey] = useState(0)
   const cropperRef = useRef()
 
   const onDragStop = useCallback((s) => setCropState(s), [])
@@ -43,8 +42,6 @@ function PerspectiveFixer (props){
     return props.activeScene === "PerspectiveFixer";
   }
 
-  const image = new Image()
-
   if (show()) {
     return (
       <div className="App">
@@ -62,7 +59,7 @@ function PerspectiveFixer (props){
           
             <UploadButton id='cropper' color="white" changeFunc={onImgSelection} />
 
-            <a className="waves-effect waves-light btn-large" id="splash-upload-button" onClick={doSomething}>Continue</a> 
+            <button className="waves-effect waves-light btn-large" id="splash-upload-button" onClick={doSomething}>Continue</button> 
           </header>                   
       </div>
     );
