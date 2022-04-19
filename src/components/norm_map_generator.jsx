@@ -31,6 +31,7 @@ function NrmMapGenCanvas(props, ref){
     const [intensity, setIntensity] = useState(50/5000); //Slider State
     const [detail, setDetail] = useState(1); //Slider State
     const [blurAmount, setBlurAmount] = useState(0)
+    const [firstRender, setRendered] = useState(true)
 
 
     /**
@@ -163,8 +164,9 @@ function NrmMapGenCanvas(props, ref){
 
     // Makes sure to update the canvas on intensity change
     useEffect(() => {
-        if(ctx == null){
+        if(firstRender == true){
             GenerateNormalMap()
+            setRendered(false);
         }
         updateNormalMap()
      },[intensity, detail, blurAmount])
