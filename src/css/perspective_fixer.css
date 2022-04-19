@@ -1,5 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,100,900);
 
+
 #perspective-title{
   font-size: 70px;
   word-spacing: absolute;
@@ -40,4 +41,25 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+#perspective-fixer {
+  position: fixed;
+  display: grid;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+  align-items: center;
+  font-family: 'Trebuchet MS', sans-serif, Helvetica, sans-serif;
+  width: 700px;
+  height: 700px;
+  text-align: center;
+  background-color: coral;
+  }
+
+.continueBtnBtm{
+  display: flex;
+  position: absolute;
+  bottom: 50px;
 }
