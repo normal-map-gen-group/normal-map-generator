@@ -7,11 +7,11 @@ import PerspectiveFixer from '../scenes/perspective_fixer';
 import MainScreen from '../scenes/main_screen';
 
 
-const Main = ({ activeScene, goBack, handleSceneChange, baseImage }) => (
+const Main = ({ activeScene, goBack, handleSceneChange, baseImage, setBaseImage }) => (
   <React.Fragment>
-    <SplashScreen activeScene={activeScene} onGoBack={goBack} onSceneChange={handleSceneChange} baseImage={baseImage} />
-    <PerspectiveFixer activeScene={activeScene}  onGoBack={goBack} onSceneChange={handleSceneChange} baseImage={baseImage} />
-    <MainScreen activeScene={activeScene}  onGoBack={goBack} onSceneChange={handleSceneChange} baseImage={baseImage}/>
+    <SplashScreen activeScene={activeScene} onGoBack={goBack} onSceneChange={handleSceneChange} baseImage={baseImage} onSetBaseImage={setBaseImage} />
+    <PerspectiveFixer activeScene={activeScene}  onGoBack={goBack} onSceneChange={handleSceneChange} baseImage={baseImage} onSetBaseImage={setBaseImage} />
+    <MainScreen activeScene={activeScene}  onGoBack={goBack} onSceneChange={handleSceneChange} baseImage={baseImage} onSetBaseImage={setBaseImage} />
   </React.Fragment>
 );
 
@@ -19,7 +19,6 @@ function App(props) {
 
   const [activeScene, setactiveScene] = useState("SplashScreen")
   const [image, setImage] = useState(new Image())
-
 
   function handleSceneChange() {
     let { name } = "";
@@ -43,9 +42,13 @@ function App(props) {
     setactiveScene(name);
   }
 
+  function setBaseImage(image) {
+    setImage(image);
+  }
+
   return (
     <div className="App">
-      <Main activeScene={activeScene} goBack={goBack} handleSceneChange={handleSceneChange} baseImage={image} />
+      <Main activeScene={activeScene} goBack={goBack} handleSceneChange={handleSceneChange} baseImage={image} setBaseImage={setBaseImage} />
     </div>
   );
 }

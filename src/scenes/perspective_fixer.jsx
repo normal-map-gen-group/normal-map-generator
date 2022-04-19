@@ -14,12 +14,17 @@ function PerspectiveFixer (props){
   const onDragStop = useCallback((s) => setCropState(s), [])
   const onChange = useCallback((s) => setCropState(s), [])
 
+  function setBaseImage(image) {
+    props.onSetBaseImage(image);
+  }
+
   const doSomething = async () => {
     console.log(cropState)
     try {
       const res = await cropperRef.current.done({ preview: true })
       console.log(res)
       props.baseImage.src = document.getElementById("perspective-fixer").toDataURL();
+      setBaseImage(props.baseImage);
     } catch (e) {
       console.log('error', e)
     }
@@ -30,6 +35,7 @@ function PerspectiveFixer (props){
   }
   
   function handleSceneChange() {
+    setBaseImage(props.baseImage);
     props.onSceneChange("MainScreen");
   }
 
