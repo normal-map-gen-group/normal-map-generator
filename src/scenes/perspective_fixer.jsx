@@ -46,10 +46,10 @@ function PerspectiveFixer (props){
                 image={props.baseImage.src}
                 onChange={onChange}
                 onDragStop={onDragStop}
-                maxWidth={1000}
+                maxWidth={500}
               />
             </div>
-          <div>
+          <div class="continueBtnBtm">
             <button className="waves-effect waves-light btn-large continue" onClick={doSomething}>Crop</button>
             <button className="waves-effect waves-light btn-large continue" onClick={handleSceneChange}>Continue</button>
           </div> 
