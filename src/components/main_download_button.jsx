@@ -16,7 +16,7 @@ export default function DownloadButton(props) {
 
   return (
       <div>
-        <button style={{color: 'white'}} id="download-button" onClick={download_image}>Download Image</button>
+        <button class="downloadBtnBtm" style={{color: 'white'}} id="download-button" onClick={download_image}>Download Image</button>
       </div>
   )
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import '../css/upload_button.css';
+import '../css/button.css';
 
 const UploadButton = (props) => {
 

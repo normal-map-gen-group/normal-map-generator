@@ -7,6 +7,7 @@
   text-align: center;
   text-decoration: none;
   display: block;
+  line-height: 75px; /* between paragraphs */
 }
 
 #mainContainer{
@@ -21,9 +22,21 @@
     text-align: center;
 }
 
+.main-header {
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: top;
+  top: 50px;
+  font-size: calc(10px + 2vmin);
+  color: white;
+
+}
 .downloadBtnBtm{
-    display: flex;
-    position: absolute;
-  
-    bottom: 50px;
-  }
+  margin: auto;
+  align-items: center;
+  align-self: center;
+  bottom: 50px;
+}

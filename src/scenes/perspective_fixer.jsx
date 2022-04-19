@@ -1,7 +1,6 @@
 import React, { useRef, useState, useCallback, useEffect } from 'react';
 import Cropper from '../components/cropper/Cropper'
 import '../css/perspective_fixer.css';
-import UploadButton from '../components/upload_button';
 
 
 //NOTE::Element id/class naming conventions to make our lives easier when writing css.
