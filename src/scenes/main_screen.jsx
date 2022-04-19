@@ -3,7 +3,7 @@ import React, { useRef, useState} from 'react';
 import '../css/App.css';
 import '../css/main_screen.css';
 import NrmMapGenCanvas from "../components/norm_map_generator";
-import DownloadButton from '../components/main_download_button';
+import DownloadButton from '../components/download_button';
 import UploadButton from '../components/upload_button';
 
 
@@ -37,11 +37,16 @@ function MainScreen (props){
       <div className="App">
 
         <header className="main-header">
+        <div id="main-title">Normal Map Generator</div>
           <div>
-            <div id="main-title">Normal Map Generator</div>
+            
             <NrmMapGenCanvas baseImage={props.baseImage} setImageLoaded={setIsImageLoaded} ref={generatorRef}></NrmMapGenCanvas>
-            <DownloadButton renderHighRes={renderHighRes}></DownloadButton>
+            
           </div>
+
+          <div className="downloadBtnBtm">
+            <DownloadButton renderHighRes={renderHighRes}></DownloadButton>
+          </div> 
         </header>
       </div>
     );

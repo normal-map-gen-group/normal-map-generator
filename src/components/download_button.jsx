@@ -15,9 +15,10 @@ export default function DownloadButton(props) {
   }
 
   return (
-      <div>
-        <button class="downloadBtnBtm" style={{color: 'white'}} id="download-button" onClick={download_image}>Download Image</button>
-      </div>
+
+
+<label className="waves-effect waves-light btn-large" id="button-container" onClick={download_image}>
+  <button  style={{color: 'white'}} id="download-button" >Download Image</button>
+    </label>
   )
 }
-

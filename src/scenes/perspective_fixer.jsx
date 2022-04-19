@@ -25,7 +25,7 @@ function PerspectiveFixer (props){
       console.log('error', e)
     }
   }
-  
+ 
   function handleSceneChange() {
     props.onSceneChange("MainScreen");
   }
@@ -49,8 +49,9 @@ function PerspectiveFixer (props){
               />
             </div>
           <div className="continueBtnBtm">
-            <button className="waves-effect waves-light btn-large continue" onClick={doSomething}>Crop</button>
-            <button className="waves-effect waves-light btn-large continue" onClick={handleSceneChange}>Continue</button>
+
+            <button className="waves-effect waves-light btn-large continue" id="button-container" onClick={doSomething}>Crop</button>
+            <button className="waves-effect waves-light btn-large continue" id="button-container" onClick={handleSceneChange}>Continue</button>
           </div> 
           </header>                   
       </div>
