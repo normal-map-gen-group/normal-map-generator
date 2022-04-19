@@ -49,7 +49,7 @@ function PerspectiveFixer (props){
                 maxWidth={500}
               />
             </div>
-          <div class="continueBtnBtm">
+          <div className="continueBtnBtm">
             <button className="waves-effect waves-light btn-large continue" onClick={doSomething}>Crop</button>
             <button className="waves-effect waves-light btn-large continue" onClick={handleSceneChange}>Continue</button>
           </div> 
