@@ -27,10 +27,8 @@
   text-align: center;
   text-decoration: none;
   display: block;
-  font-family: 'Trebuchet MS', sans-serif, Helvetica, sans-serif;
-  line-height: 32px;   /* within paragraph */
-  margin-bottom: 100px; /* between paragraphs */
 }
+
 
 #splash-text {
   text-align: center;
