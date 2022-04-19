@@ -1,18 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,100,900);
 
 
-/* #perspective-title{
-  font-size: 70px;
-  word-spacing: absolute;
-  text-align: center;
-  text-decoration: none;
-  display: block;
-  font-family: 'Trebuchet MS', sans-serif, Helvetica, sans-serif;
-  line-height: 32px;  
-  margin-bottom: 100px; 
-  margin-top: 50px;
-} */
-
 .continue{
   border-radius: 15px;
 }
@@ -43,22 +31,24 @@
   color: white;
 }
 
-#perspective-title {
-  position: fixed;
-  /* display: grid; */
-  top: 50%;
-  left: 50%;
-  /* bring your own prefixes */
-  transform: translate(-50%, -50%);
-  align-items: center;
-  font-family: 'Trebuchet MS', sans-serif, Helvetica, sans-serif;
-  width: 700px;
-  height: 700px;
+#perspective-title{
+  font-size: 70px;
+  word-spacing: absolute;
   text-align: center;
-  }
+  text-decoration: none;
+  display: block;
+  margin-bottom: 40px;
+}
+
 
 .continueBtnBtm{
   display: flex;
   position: absolute;
   bottom: 50px;
+  z-index: 10;
+}
+
+.continueBtnBtm > button {
+  margin: 0px 45px;
+  padding: 0px 50px;
 }
