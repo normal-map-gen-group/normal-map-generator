@@ -1,7 +1,6 @@
 import React, { useRef, useState, useCallback, useEffect } from 'react';
 import Cropper from '../components/cropper/Cropper'
 import '../css/perspective_fixer.css';
-import UploadButton from '../components/upload_button';
 
 
 //NOTE::Element id/class naming conventions to make our lives easier when writing css.
@@ -15,7 +14,6 @@ function PerspectiveFixer (props){
   const onDragStop = useCallback((s) => setCropState(s), [])
   const onChange = useCallback((s) => setCropState(s), [])
 
-
   const doSomething = async () => {
     console.log(cropState)
     try {
@@ -25,6 +23,10 @@ function PerspectiveFixer (props){
     } catch (e) {
       console.log('error', e)
     }
+  }
+
+  function goBack() {
+    props.onGoBack("SplashScreen");
   }
   
   function handleSceneChange() {
@@ -38,6 +40,7 @@ function PerspectiveFixer (props){
   if (show()) {
     return (
       <div className="App">
+      <button className="waves-effect waves-light btn-large back-button" onClick={goBack}><i className="material-icons">arrow_back</i></button>
           <header className='perspective-header'>
             <div id="perspective-title">Normal Map Generator</div>
             <div className='centered'>

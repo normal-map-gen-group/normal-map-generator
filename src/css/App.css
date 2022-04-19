@@ -34,3 +34,9 @@
 .App-link {
   color: #61dafb;
 }
+
+.back-button {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+}

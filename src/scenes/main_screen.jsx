@@ -11,8 +11,12 @@ import MainUploadButton from '../components/main_upload_button';
 
 function MainScreen (props){
 
-  function handleSceneChange(e) {
+  function handleSceneChange() {
     props.onSceneChange();
+  }
+
+  function goBack() {
+    props.onGoBack("PerspectiveFixer");
   }
 
   const generatorRef = useRef()
@@ -34,7 +38,7 @@ function MainScreen (props){
     return (
 
       <div className="App">
-
+      <button className="waves-effect waves-light btn-large back-button" onClick={goBack}><i className="material-icons">arrow_back</i></button>
         <header className="App-header">
           <div>
             <div id="splash-title">Normal Map Generator</div>

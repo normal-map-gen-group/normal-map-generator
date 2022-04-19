@@ -7,11 +7,11 @@ import PerspectiveFixer from '../scenes/perspective_fixer';
 import MainScreen from '../scenes/main_screen';
 
 
-const Main = ({ activeScene, handleSceneChange, baseImage }) => (
+const Main = ({ activeScene, goBack, handleSceneChange, baseImage }) => (
   <React.Fragment>
-    <SplashScreen activeScene={activeScene}  onSceneChange={handleSceneChange} baseImage={baseImage} />
-    <PerspectiveFixer activeScene={activeScene}  onSceneChange={handleSceneChange} baseImage={baseImage} />
-    <MainScreen activeScene={activeScene}  onSceneChange={handleSceneChange} baseImage={baseImage}/>
+    <SplashScreen activeScene={activeScene} onGoBack={goBack} onSceneChange={handleSceneChange} baseImage={baseImage} />
+    <PerspectiveFixer activeScene={activeScene}  onGoBack={goBack} onSceneChange={handleSceneChange} baseImage={baseImage} />
+    <MainScreen activeScene={activeScene}  onGoBack={goBack} onSceneChange={handleSceneChange} baseImage={baseImage}/>
   </React.Fragment>
 );
 
@@ -32,10 +32,20 @@ function App(props) {
     setactiveScene(name);
   }
 
+  function goBack() {
+    let { name } = "";
+    if (activeScene === "MainScreen") {
+      name = "PerspectiveFixer";
+    } else {
+      name = "SplashScreen";
+    }
+
+    setactiveScene(name);
+  }
 
   return (
     <div className="App">
-      <Main activeScene={activeScene} handleSceneChange={handleSceneChange} baseImage={image} />
+      <Main activeScene={activeScene} goBack={goBack} handleSceneChange={handleSceneChange} baseImage={image} />
     </div>
   );
 }
