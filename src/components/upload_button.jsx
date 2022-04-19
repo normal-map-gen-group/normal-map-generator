@@ -1,14 +1,14 @@
 import React from 'react';
 
-import '../css/download_button.css';
+import '../css/upload_button.css';
 
 const UploadButton = (props) => {
 
   return (
-    <div>
-      Upload Image:
+    <label className="waves-effect waves-light btn-large" id="upload-button-container">
       <input style={{ color: props.color }} id="upload-button" type="file" accept="image/*" onChange={props.changeFunc} />
-    </div>
+      Upload Texture
+    </label>
   )
 };
 
