@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import '../css/norm_map_generator.css';
 import SliderWrapper from './slider_wrapper';
-import UploadButton from './upload_button';
 
 let baseImgMat = null //Stores the unprocessed img.
 let srcImgMat = null
