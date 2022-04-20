@@ -12,6 +12,10 @@ function SplashScreen(props) {
     props.onSceneChange();
   }
 
+  function setBaseImage(image) {
+    props.onSetBaseImage(image);
+  }
+
   function show() {
     return props.activeScene === "SplashScreen";
   }
@@ -20,7 +24,8 @@ function SplashScreen(props) {
     
     //Converts the loaded "thing" into an img.
     if (event.target.files && event.target.files[0]) {
-      props.baseImage.src = URL.createObjectURL(event.target.files[0])
+      props.baseImage.src = URL.createObjectURL(event.target.files[0]);
+      setBaseImage(props.baseImage);
     }
 
     //onload is used to make sure that the img is fully loaded before any processing.

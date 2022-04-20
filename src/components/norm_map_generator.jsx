@@ -32,6 +32,7 @@ function NrmMapGenCanvas(props, ref){
     const [intensity, setIntensity] = useState(50/5000); //Slider State
     const [detail, setDetail] = useState(1); //Slider State
     const [blurAmount, setBlurAmount] = useState(0)
+    const [firstRender, setRendered] = useState(true)
 
 
     /**
@@ -60,6 +61,7 @@ function NrmMapGenCanvas(props, ref){
     //Generate a normal map from the image loaded on the canvas.
     //TODO::If not fast enough, convert sobels to img data.
     function GenerateNormalMap() {
+        console.log("generate normal map")
         if(isRenderHighRes.current){
             canvas = HDCanvas.current
         }
@@ -67,8 +69,8 @@ function NrmMapGenCanvas(props, ref){
             canvas = Canvas.current
         }
         ctx = canvas.getContext("2d")
-        baseImgMat = cv.imread(img); //base img
-        srcImgMat = baseImgMat; //base img
+        baseImgMat = cv.imread(img) //base img
+        srcImgMat = baseImgMat //base img
         orgSize[0] = img.width
         orgSize[1] = img.height
 
@@ -113,7 +115,7 @@ function NrmMapGenCanvas(props, ref){
     //TODO::Clean this
     dZ = 1.0/ intensity * (1.0 + Math.pow(2.0, detail))
     function updateNormalMap() {
-
+        console.log("updating normal map")
         //Loop through the pixels and calculate the RGB colors. This is where the normal map is "created".
         let dX = 0
         let dY = 0
@@ -163,8 +165,9 @@ function NrmMapGenCanvas(props, ref){
 
     // Makes sure to update the canvas on intensity change
     useEffect(() => {
-        if(ctx == null){
+        if(firstRender == true){
             GenerateNormalMap()
+            setRendered(false);
         }
         updateNormalMap()
      },[intensity, detail, blurAmount])

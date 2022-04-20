@@ -4,6 +4,7 @@ import '../css/perspective_fixer.css';
 import '../css/App.css';
 import '../css/button.css';
 
+
 //NOTE::Element id/class naming conventions to make our lives easier when writing css.
 //Use all lower case and seperate words with a dash. Example: id="upload-button"
 function PerspectiveFixer (props){
@@ -15,6 +16,9 @@ function PerspectiveFixer (props){
   const onDragStop = useCallback((s) => setCropState(s), [])
   const onChange = useCallback((s) => setCropState(s), [])
 
+  function setBaseImage(image) {
+    props.onSetBaseImage(image);
+  }
 
   const doSomething = async () => {
     console.log(cropState)
@@ -22,12 +26,18 @@ function PerspectiveFixer (props){
       const res = await cropperRef.current.done({ preview: true })
       console.log(res)
       props.baseImage.src = document.getElementById("perspective-fixer").toDataURL();
+      setBaseImage(props.baseImage);
     } catch (e) {
       console.log('error', e)
     }
   }
- 
+
+  function goBack() {
+    props.onGoBack("SplashScreen");
+  }
+  
   function handleSceneChange() {
+    setBaseImage(props.baseImage);
     props.onSceneChange("MainScreen");
   }
 
@@ -38,6 +48,9 @@ function PerspectiveFixer (props){
   if (show()) {
     return (
       <div className="App">
+
+      <button className="waves-effect waves-light btn-large back-button" onClick={goBack}><i className="material-icons">arrow_back</i></button>
+      
           <header className='header'>
             <div id="title">Normal Map Generator</div>
           </header> 

@@ -36,7 +36,17 @@
   font-size: calc(10px + 2vmin);
   color: white;
 
- 
+}
+
+
+.App-link {
+  color: #61dafb;
+}
+
+.back-button {
+  position: absolute;
+  top: 50%;
+  left: 10px;
 
 }
 
