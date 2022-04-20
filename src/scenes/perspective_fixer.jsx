@@ -1,7 +1,8 @@
 import React, { useRef, useState, useCallback, useEffect } from 'react';
 import Cropper from '../components/cropper/Cropper'
 import '../css/perspective_fixer.css';
-
+import '../css/App.css';
+import '../css/button.css';
 
 //NOTE::Element id/class naming conventions to make our lives easier when writing css.
 //Use all lower case and seperate words with a dash. Example: id="upload-button"
@@ -37,8 +38,8 @@ function PerspectiveFixer (props){
   if (show()) {
     return (
       <div className="App">
-          <header className='perspective-header'>
-            <div id="perspective-title">Normal Map Generator</div>
+          <header className='header'>
+            <div id="title">Normal Map Generator</div>
             <div className='centered'>
               <Cropper
                 ref={cropperRef}
@@ -48,11 +49,13 @@ function PerspectiveFixer (props){
                 maxWidth={500}
               />
             </div>
-          <div className="continueBtnBtm">
+
+          <div className="BtnBtm">
 
             <button className="waves-effect waves-light btn-large continue" id="button-container" onClick={doSomething}>Crop</button>
             <button className="waves-effect waves-light btn-large continue" id="button-container" onClick={handleSceneChange}>Continue</button>
           </div> 
+
           </header>                   
       </div>
     );

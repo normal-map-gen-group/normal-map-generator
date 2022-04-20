@@ -2,6 +2,8 @@
 
 
 .App {
+  min-height: 100vh;
+  min-width: 100vw;
   text-align: center;
   background-color: #282c34;
   background-size: cover;
@@ -10,4 +12,26 @@
 
 .App-link {
   color: #61dafb;
+}
+
+/*"Normal Map Generator" text*/
+#title{
+  font-size: 70px;
+  word-spacing: absolute;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  line-height: 100px; /* between paragraphs */
+}
+
+
+/*Defines the header block where "Normal Map Generator" text sits*/
+.header {
+  
+  align-items: center;
+  flex-direction: column;
+  justify-content: top;
+  font-size: calc(10px + 2vmin);
+  color: white;
+
 }

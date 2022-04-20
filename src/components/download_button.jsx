@@ -1,6 +1,6 @@
 import React, {  } from 'react';
 
-import '../css/download_button.css';
+import '../css/button.css';
 
 export default function DownloadButton(props) {
 
@@ -15,10 +15,9 @@ export default function DownloadButton(props) {
   }
 
   return (
-
-
-<label className="waves-effect waves-light btn-large" id="button-container" onClick={download_image}>
-  <button  style={{color: 'white'}} id="download-button" >Download Image</button>
+    <label className="waves-effect waves-light btn-large" id="button-container" onClick={download_image}>
+      <button  style={{color: 'white'}} id="button-display"></button>
+      Download Image
     </label>
   )
 }

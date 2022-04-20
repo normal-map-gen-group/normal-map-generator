@@ -1,10 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,100,900);
 
 
-.continue{
-  border-radius: 15px;
-}
-
 #cropper {
   margin-bottom: 75px;
   margin-top: 50px;
@@ -13,7 +9,7 @@
 }
 
 .centered {
-  position: fixed;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -22,40 +18,4 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.perspective-header {
-    min-height: 100vh;
-    min-width: 100vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: top;
-    font-size: calc(10px + 2vmin);
-    color: white;
-  
-}
-
-#perspective-title{
-  font-size: 70px;
-  word-spacing: absolute;
-  text-align: center;
-  text-decoration: none;
-  display: block;
-  top: 100px;
-  line-height: 75px; /* between paragraphs */
-}
-
-
-
-.continueBtnBtm{
-  display: flex;
-  position: absolute;
-  bottom: 50px;
-  z-index: 10;
-}
-
-.continueBtnBtm > button {
-  margin: 0px 45px;
-  padding: 0px 50px;
 }

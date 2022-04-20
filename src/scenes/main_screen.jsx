@@ -2,6 +2,7 @@ import React, { useRef, useState} from 'react';
 
 import '../css/App.css';
 import '../css/main_screen.css';
+import '../css/button.css';
 import NrmMapGenCanvas from "../components/norm_map_generator";
 import DownloadButton from '../components/download_button';
 import UploadButton from '../components/upload_button';
@@ -36,18 +37,29 @@ function MainScreen (props){
 
       <div className="App">
 
-        <header className="main-header">
-        <div id="main-title">Normal Map Generator</div>
-          <div>
-            
-            <NrmMapGenCanvas baseImage={props.baseImage} setImageLoaded={setIsImageLoaded} ref={generatorRef}></NrmMapGenCanvas>
-            
+        <header className="header">
+        <div id="title">Normal Map Generator</div>
+        
+        <div class = "grid_items">
+          <div class = "grid_item">
+            The normal map preview goes here
           </div>
 
-          <div className="downloadBtnBtm">
-            <DownloadButton renderHighRes={renderHighRes}></DownloadButton>
-          </div> 
+          <div class = "grid_item">
+            <NrmMapGenCanvas baseImage={props.baseImage} setImageLoaded={setIsImageLoaded} ref={generatorRef}></NrmMapGenCanvas>
+          </div>
+
+          <div class = "grid_item">
+            The 3D preview goes here
+          </div>
+
+        </div>
+
         </header>
+
+        <div className="BtnBtm">
+            <DownloadButton renderHighRes={renderHighRes}></DownloadButton>
+        </div> 
       </div>
     );
   } else {
