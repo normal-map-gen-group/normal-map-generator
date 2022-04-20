@@ -49,10 +49,9 @@ function PerspectiveFixer (props){
     return (
       <div className="App">
 
-      <button className="waves-effect waves-light btn-large back-button" onClick={goBack}><i className="material-icons">arrow_back</i></button>
-      
           <header className='header'>
-            <div id="title">Normal Map Generator</div>
+            <div id="title"><button className="waves-effect waves-light btn-large back-button" id="button-container" onClick={goBack}><i className="material-icons"><span>arrow_back</span></i></button>
+              Normal Map Generator</div>
           </header> 
 
           <div class="main_body">

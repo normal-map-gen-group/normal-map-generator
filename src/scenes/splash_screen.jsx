@@ -40,6 +40,8 @@ function SplashScreen(props) {
       <div className="main-container">
         <h2 id="splash-title">Normal Map Generator</h2>
         <p id="splash-text">To begin, upload a texture</p>
+        
+        
         <div>
           <UploadButton changeFunc={onImageSelect}></UploadButton>
         </div>

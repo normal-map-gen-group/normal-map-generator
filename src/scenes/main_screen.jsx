@@ -1,7 +1,6 @@
 import React, { useRef, useState} from 'react';
 
 import '../css/App.css';
-import '../css/norm_map_generator.css';
 import '../css/button.css';
 import NrmMapGenCanvas from "../components/norm_map_generator";
 import DownloadButton from '../components/download_button';
@@ -41,10 +40,11 @@ function MainScreen (props){
 
       <div className="App">
 
-      <button className="waves-effect waves-light btn-large back-button" onClick={goBack}><i className="material-icons">arrow_back</i></button>
+      
         
          <header className="header">
-            <div id="title">Normal Map Generator</div>
+            <div id="title"><button className="waves-effect waves-light btn-large back-button" id="button-container" onClick={goBack}><i className="material-icons"><span>arrow_back</span></i></button>
+                  Normal Map Generator</div>
           </header>
         
           <div class = "main_body">
