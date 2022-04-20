@@ -1,5 +1,7 @@
 import React, { useRef, useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import '../css/norm_map_generator.css';
+
+
 import SliderWrapper from './slider_wrapper';
 
 let baseImgMat = null //Stores the unprocessed img.
@@ -173,12 +175,26 @@ function NrmMapGenCanvas(props, ref){
     return (
         <div id="canvas-container">
 
-            <SliderWrapper name_value="Intensity" min_value={0.00001} max_value={0.05} step_value={0.0001} default_value={0.01} funcforthis={(event) => { onIntensityChange(event) }} />
-            <SliderWrapper name_value="Detail" min_value={-10} max_value={10} step_value={0.1} default_value={1} funcforthis={(event) => { onLevelChange(event) }} />
-            <SliderWrapper name_value="Blur" min_value={0} max_value={13} step_value={0.0001} default_value={0} funcforthis={(event) => { setBlurAmount(event.target.value); globalBlurAmnt = event.target.value; blurUpdate(); }} />
+            <div class = "grid_items">
+                <div class = "grid_item">
+                <canvas id="normal-canvas" ref={Canvas} width="250" height="250"></canvas>
+                <canvas id="highres-canvas" ref={HDCanvas} width="250" height="250"></canvas>                
+                </div>
 
-            <canvas id="normal-canvas" ref={Canvas} width="250" height="250"></canvas>
-            <canvas id="highres-canvas" ref={HDCanvas} width="250" height="250"></canvas>
+                <div class = "grid_item">
+                    <SliderWrapper name_value="Intensity" min_value={0.00001} max_value={0.05} step_value={0.0001} default_value={0.01} funcforthis={(event) => { onIntensityChange(event) }} />
+                    <SliderWrapper name_value="Detail" min_value={-10} max_value={10} step_value={0.1} default_value={1} funcforthis={(event) => { onLevelChange(event) }} />
+                    <SliderWrapper name_value="Blur" min_value={0} max_value={13} step_value={0.0001} default_value={0} funcforthis={(event) => { setBlurAmount(event.target.value); globalBlurAmnt = event.target.value; blurUpdate(); }} />
+
+                </div>
+
+                <div class = "grid_item">
+                    The 3D preview goes here
+                </div>
+            </div>
+
+
+            
         </div>
     )
 }

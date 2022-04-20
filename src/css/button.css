@@ -27,14 +27,11 @@
 
 /*Affixes button to the bottom of the screen*/
 .BtnBtm{
-
-  display: flex;
-  position: fixed;
-  left: 50%;
+  position: static;
   bottom: 10px;
-  transform: translate(-50%, -50%);
   margin: 0 auto;
   z-index: 10;
+
 }
 
 .BtnBtm > button {

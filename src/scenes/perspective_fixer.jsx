@@ -40,6 +40,9 @@ function PerspectiveFixer (props){
       <div className="App">
           <header className='header'>
             <div id="title">Normal Map Generator</div>
+          </header> 
+
+          <div class="main_body">
             <div className='centered'>
               <Cropper
                 ref={cropperRef}
@@ -49,14 +52,15 @@ function PerspectiveFixer (props){
                 maxWidth={500}
               />
             </div>
+            
 
+          
           <div className="BtnBtm">
 
             <button className="waves-effect waves-light btn-large continue" id="button-container" onClick={doSomething}>Crop</button>
             <button className="waves-effect waves-light btn-large continue" id="button-container" onClick={handleSceneChange}>Continue</button>
-          </div> 
-
-          </header>                   
+          </div>  
+          </div>                  
       </div>
     );
   } else {

@@ -8,6 +8,7 @@
   background-color: #282c34;
   background-size: cover;
   overflow: hidden;
+  
 }
 
 .App-link {
@@ -27,11 +28,19 @@
 
 /*Defines the header block where "Normal Map Generator" text sits*/
 .header {
-  
+  position: relative;
+  height: fit-content;
   align-items: center;
   flex-direction: column;
   justify-content: top;
   font-size: calc(10px + 2vmin);
   color: white;
+
+ 
+
+}
+
+.main_body {
+  height: 100%; 
 
 }
