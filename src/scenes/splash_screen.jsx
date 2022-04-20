@@ -34,7 +34,7 @@ function SplashScreen(props) {
     }
   }
 
-
+ 
   if (show()) {
     return (
       <div className="main-container">

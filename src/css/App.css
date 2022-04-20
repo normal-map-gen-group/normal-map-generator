@@ -2,34 +2,42 @@
 
 
 .App {
+  min-height: 100vh;
+  min-width: 100vw;
   text-align: center;
   background-color: #282c34;
   background-size: cover;
   overflow: hidden;
+  
 }
 
-.App-header {
-  min-height: 100vh;
-  min-width: 100vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.App-link {
+  color: #61dafb;
 }
 
-.App-headerTop {
-  min-height: 100vh;
-  min-width: 100vw;
-  display: flex;
-  flex-direction: column;
+/*"Normal Map Generator" text*/
+#title{
+  font-size: 70px;
+  word-spacing: absolute;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  line-height: 100px; /* between paragraphs */
+}
+
+
+/*Defines the header block where "Normal Map Generator" text sits*/
+.header {
+  position: relative;
+  height: fit-content;
   align-items: center;
+  flex-direction: column;
   justify-content: top;
-  top: 50px;
   font-size: calc(10px + 2vmin);
   color: white;
+
 }
+
 
 .App-link {
   color: #61dafb;
@@ -39,4 +47,10 @@
   position: absolute;
   top: 50%;
   left: 10px;
+
+}
+
+.main_body {
+  height: 100%; 
+
 }

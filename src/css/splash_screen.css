@@ -14,23 +14,15 @@
   color: white;
 }
 
-#p-style{
-  font-family: 'Trebuchet MS', sans-serif, Helvetica, sans-serif;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-}
-
 #splash-title{
   font-size: 70px;
   word-spacing: absolute;
   text-align: center;
   text-decoration: none;
   display: block;
-  font-family: 'Trebuchet MS', sans-serif, Helvetica, sans-serif;
-  line-height: 32px;   /* within paragraph */
   margin-bottom: 100px; /* between paragraphs */
 }
+
 
 #splash-text {
   text-align: center;

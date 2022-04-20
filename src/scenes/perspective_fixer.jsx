@@ -1,6 +1,8 @@
 import React, { useRef, useState, useCallback, useEffect } from 'react';
 import Cropper from '../components/cropper/Cropper'
 import '../css/perspective_fixer.css';
+import '../css/App.css';
+import '../css/button.css';
 
 
 //NOTE::Element id/class naming conventions to make our lives easier when writing css.
@@ -46,9 +48,14 @@ function PerspectiveFixer (props){
   if (show()) {
     return (
       <div className="App">
+
       <button className="waves-effect waves-light btn-large back-button" onClick={goBack}><i className="material-icons">arrow_back</i></button>
-          <header className='perspective-header'>
-            <div id="perspective-title">Normal Map Generator</div>
+      
+          <header className='header'>
+            <div id="title">Normal Map Generator</div>
+          </header> 
+
+          <div class="main_body">
             <div className='centered'>
               <Cropper
                 ref={cropperRef}
@@ -58,11 +65,15 @@ function PerspectiveFixer (props){
                 maxWidth={500}
               />
             </div>
-          <div className="continueBtnBtm">
-            <button className="waves-effect waves-light btn-large continue" onClick={doSomething}>Crop</button>
-            <button className="waves-effect waves-light btn-large continue" onClick={handleSceneChange}>Continue</button>
-          </div> 
-          </header>                   
+            
+
+          
+          <div className="BtnBtm">
+
+            <button className="waves-effect waves-light btn-large continue" id="button-container" onClick={doSomething}>Crop</button>
+            <button className="waves-effect waves-light btn-large continue" id="button-container" onClick={handleSceneChange}>Continue</button>
+          </div>  
+          </div>                  
       </div>
     );
   } else {

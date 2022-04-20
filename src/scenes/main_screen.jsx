@@ -1,10 +1,12 @@
 import React, { useRef, useState} from 'react';
 
 import '../css/App.css';
-import '../css/main_screen.css';
+import '../css/norm_map_generator.css';
+import '../css/button.css';
 import NrmMapGenCanvas from "../components/norm_map_generator";
 import DownloadButton from '../components/download_button';
-import MainUploadButton from '../components/main_upload_button';
+import UploadButton from '../components/upload_button';
+
 
 //NOTE::Element id/class naming conventions to make our lives easier when writing css.
 //Use all lower case and seperate words with a dash. Example: id="upload-button"
@@ -38,14 +40,25 @@ function MainScreen (props){
     return (
 
       <div className="App">
+
       <button className="waves-effect waves-light btn-large back-button" onClick={goBack}><i className="material-icons">arrow_back</i></button>
-        <header className="App-header">
-          <div>
-            <div id="splash-title">Normal Map Generator</div>
-            <NrmMapGenCanvas baseImage={props.baseImage} setImageLoaded={setIsImageLoaded} ref={generatorRef}></NrmMapGenCanvas>
-            <DownloadButton renderHighRes={renderHighRes}></DownloadButton>
+        
+         <header className="header">
+            <div id="title">Normal Map Generator</div>
+          </header>
+        
+          <div class = "main_body">
+          <div >
+              <NrmMapGenCanvas baseImage={props.baseImage} setImageLoaded={setIsImageLoaded} ref={generatorRef}></NrmMapGenCanvas>
           </div>
-        </header>
+
+
+          <div className="BtnBtm">
+            <DownloadButton renderHighRes={renderHighRes}></DownloadButton>
+          </div> 
+
+
+          </div>
       </div>
     );
   } else {
