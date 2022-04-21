@@ -49,13 +49,21 @@ function PerspectiveFixer (props){
     return (
       <div className="App">
 
-          <header className='header'>
-            <div id="title"><button className="waves-effect waves-light btn-large back-button" id="button-container" onClick={goBack}><i className="material-icons"><span>arrow_back</span></i></button>
-              Normal Map Generator</div>
+          <header className="header">
+
+            <div className="header_row">
+
+              <div className = "header_column left">
+                <button className="waves-effect waves-light btn-large back-button" id="button-container" onClick={goBack}><i className="material-icons"><span>arrow_back</span></i></button>
+              </div>
+            
+              <div className= "header_column middle" id="title">Normal Map Generator</div>
+            
+            </div>
           </header> 
 
           <div className="main_body">
-            <div className='centered'>
+            <div className = "centered">
               <Cropper
                 ref={cropperRef}
                 image={props.baseImage.src}
@@ -65,7 +73,7 @@ function PerspectiveFixer (props){
               />
             </div>
             
-
+            
           
           <div className="BtnBtm">
 

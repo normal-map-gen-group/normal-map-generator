@@ -1493,10 +1493,17 @@
   "resolved" "https://registry.npmjs.org/@react-spring/types/-/types-9.4.4.tgz"
   "version" "9.4.4"
 
+<<<<<<< HEAD
+"@react-three/drei@^9.5.1":
+  "integrity" "sha512-7EgtlKwX3gOlSWjMxHBx5oMVEllnMSnxU9H5TWv+WP9UVovfGNB7VVuRqqqzsgk4Vxn4nvl5LfbyMIXZuqOPsQ=="
+  "resolved" "https://registry.npmjs.org/@react-three/drei/-/drei-9.5.1.tgz"
+  "version" "9.5.1"
+=======
 "@react-three/drei@^9.5.0":
   "integrity" "sha512-WN1P/+CBQR7wQbeg1+KpKhX+6aNHnsm7DJzYTFfuZaZkR0bpWZD+78u4yeAoYk39D9d+ltWGj9c1G5htxh1Nmg=="
   "resolved" "https://registry.npmjs.org/@react-three/drei/-/drei-9.5.0.tgz"
   "version" "9.5.0"
+>>>>>>> fc53c2498cd3c1e6338be64213c608a29888fb58
   dependencies:
     "@babel/runtime" "^7.11.2"
     "@react-spring/three" "^9.3.1"
@@ -1513,7 +1520,11 @@
     "stats.js" "^0.17.0"
     "suspend-react" "^0.0.8"
     "three-mesh-bvh" "^0.5.7"
+<<<<<<< HEAD
+    "three-stdlib" "^2.9.1"
+=======
     "three-stdlib" "^2.8.12"
+>>>>>>> fc53c2498cd3c1e6338be64213c608a29888fb58
     "troika-three-text" "^0.46.3"
     "utility-types" "^3.10.0"
     "zustand" "^3.5.13"
@@ -11116,7 +11127,11 @@
   "resolved" "https://registry.npmjs.org/three-mesh-bvh/-/three-mesh-bvh-0.5.10.tgz"
   "version" "0.5.10"
 
+<<<<<<< HEAD
+"three-stdlib@^2.9.1":
+=======
 "three-stdlib@^2.8.12":
+>>>>>>> fc53c2498cd3c1e6338be64213c608a29888fb58
   "integrity" "sha512-e+Hyd47ssVTy2UzUfmaccB7m30qITVMdvGs/QypeGdJa3uwhw1zR9jO/ce61S65Omiy/oGDMWG8dJIZxyQ7u8w=="
   "resolved" "https://registry.npmjs.org/three-stdlib/-/three-stdlib-2.9.1.tgz"
   "version" "2.9.1"

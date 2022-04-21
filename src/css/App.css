@@ -17,18 +17,17 @@
 
 /*"Normal Map Generator" text*/
 #title{
-  font-size: 70px;
+  font-size: calc(50px + 2vmin);
   word-spacing: absolute;
   text-align: center;
   text-decoration: none;
   display: block;
-  line-height: 100px; /* between paragraphs */
 }
 
 
 /*Defines the header block where "Normal Map Generator" text sits*/
 .header {
-  position: relative;
+ 
   height: fit-content;
   align-items: center;
   flex-direction: column;
@@ -45,5 +44,40 @@
 
 .main_body {
   height: 100%; 
+}
 
+
+/*header specific css*/
+.header_column{
+  float:left;
+
+}
+
+.left, .right{
+  width: 25%;
+  padding-bottom: 500em;
+  margin-bottom: -500em;
+  margin-top: 30px;
+  align-items: center;
+  
+
+}
+
+.middle{
+  width: 50%;
+  padding-bottom: 500em;
+  margin-bottom: -500em;
+}
+
+.header_row:after{
+  content: "";
+  display: table;
+  clear: both;
+  
+}
+
+@media screen and (max-width: 981px){
+  .header_column{
+    width: 100%;
+  }
 }
