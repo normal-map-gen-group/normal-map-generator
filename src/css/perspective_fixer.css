@@ -16,7 +16,7 @@
 .centered {
   position: relative;
   height: 80vh;
-  display: flex;
+  display: grid;
   justify-content: center;
   align-items: center;
 }
