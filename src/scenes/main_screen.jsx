@@ -41,14 +41,14 @@ function MainScreen (props){
       <div className="App">
 
          <header className="header">
-          <div class="header_row">
+          <div className="header_row">
 
-            <div class = "header_column left">
+            <div className = "header_column left">
               <button className="waves-effect waves-light btn-large back-button" id="button-container" onClick={goBack}><i className="material-icons"><span>arrow_back</span></i></button>
             </div>
 
 
-            <div class = "header_column middle" id="title">Normal Map Generator</div>
+            <div className = "header_column middle" id="title">Normal Map Generator</div>
           </div>
             
           </header>
