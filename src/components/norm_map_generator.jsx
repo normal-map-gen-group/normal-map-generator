@@ -5,8 +5,6 @@ import { OrbitControls } from "@react-three/drei";
 import Box from "../components/shapes/box"
 import '../css/norm_map_generator.css';
 
-
-
 import SliderWrapper from './slider_wrapper';
 
 let baseImgMat = null //Stores the unprocessed img.
