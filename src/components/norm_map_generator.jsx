@@ -180,7 +180,6 @@ function NrmMapGenCanvas(props, ref){
    
 
 
-
     //HTML elements of this component.
     return (
         <div id="canvas-container">
