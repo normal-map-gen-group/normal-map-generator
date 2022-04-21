@@ -47,7 +47,7 @@ function MainScreen (props){
                   Normal Map Generator</div>
           </header>
         
-          <div class = "main_body">
+          <div className = "main_body">
           <div >
               <NrmMapGenCanvas baseImage={props.baseImage} setImageLoaded={setIsImageLoaded} ref={generatorRef}></NrmMapGenCanvas>
           </div>

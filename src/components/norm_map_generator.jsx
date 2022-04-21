@@ -1,4 +1,8 @@
 import React, { useRef, useState, useEffect, forwardRef, useImperativeHandle } from 'react';
+import {Canvas as ThreeCanvas} from "@react-three/fiber";
+import { Suspense } from "react";
+import { OrbitControls } from "@react-three/drei";
+import Box from "../components/shapes/box"
 import '../css/norm_map_generator.css';
 
 
@@ -18,6 +22,7 @@ let dZ = 1
 let globalBlurAmnt = 0;
 
 const img = new Image()
+const normalMap = new Image()
 
 
 function NrmMapGenCanvas(props, ref){
@@ -25,7 +30,7 @@ function NrmMapGenCanvas(props, ref){
     // let Caman = window.Caman
     let cv = window.cv //Load opencv.
     img.src = props.baseImage.src;
-    const Canvas = useRef() //React ref to get the canvas.
+    const RegCanvas = useRef() //React ref to get the canvas.
     const HDCanvas = useRef()
     const isRenderHighRes = useRef(false);
 
@@ -61,12 +66,11 @@ function NrmMapGenCanvas(props, ref){
     //Generate a normal map from the image loaded on the canvas.
     //TODO::If not fast enough, convert sobels to img data.
     function GenerateNormalMap() {
-        console.log("generate normal map")
         if(isRenderHighRes.current){
             canvas = HDCanvas.current
         }
         else{
-            canvas = Canvas.current
+            canvas = RegCanvas.current
         }
         ctx = canvas.getContext("2d")
         baseImgMat = cv.imread(img) //base img
@@ -115,7 +119,6 @@ function NrmMapGenCanvas(props, ref){
     //TODO::Clean this
     dZ = 1.0/ intensity * (1.0 + Math.pow(2.0, detail))
     function updateNormalMap() {
-        console.log("updating normal map")
         //Loop through the pixels and calculate the RGB colors. This is where the normal map is "created".
         let dX = 0
         let dY = 0
@@ -136,6 +139,7 @@ function NrmMapGenCanvas(props, ref){
         }
         ctx.putImageData(canvasData, 0, 0, 0, 0, imgSize[0], imgSize[1])
         blurUpdate()
+        normalMap.src = canvas.toDataURL();
     }
 
 
@@ -174,25 +178,33 @@ function NrmMapGenCanvas(props, ref){
 
    
 
+
+
     //HTML elements of this component.
     return (
         <div id="canvas-container">
 
-            <div class = "grid_items">
-                <div class = "grid_item">
-                <canvas id="normal-canvas" ref={Canvas} width="250" height="250"></canvas>
+            <div className = "grid_items">
+                <div className = "grid_item">
+                <canvas id="normal-canvas" ref={RegCanvas} width="250" height="250"></canvas>
                 <canvas id="highres-canvas" ref={HDCanvas} width="250" height="250"></canvas>                
                 </div>
 
-                <div class = "grid_item">
+                <div className = "grid_item">
                     <SliderWrapper name_value="Intensity" min_value={0.00001} max_value={0.05} step_value={0.0001} default_value={0.01} funcforthis={(event) => { onIntensityChange(event) }} />
                     <SliderWrapper name_value="Detail" min_value={-10} max_value={10} step_value={0.1} default_value={1} funcforthis={(event) => { onLevelChange(event) }} />
                     <SliderWrapper name_value="Blur" min_value={0} max_value={13} step_value={0.0001} default_value={0} funcforthis={(event) => { setBlurAmount(event.target.value); globalBlurAmnt = event.target.value; blurUpdate(); }} />
-
                 </div>
 
-                <div class = "grid_item">
-                    The 3D preview goes here
+                <div className = "grid_item" id="three-container">
+                <ThreeCanvas className="three-canvas">
+                    <OrbitControls enableZoom={false} />
+                    <ambientLight intensity={1} />
+                    <directionalLight position={[-2, 5, 2]} />
+                    <Suspense fallback={null}>
+                        <Box normalMap={normalMap.src}></Box>
+                    </Suspense>
+                </ThreeCanvas>
                 </div>
             </div>
 

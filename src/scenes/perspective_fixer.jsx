@@ -54,7 +54,7 @@ function PerspectiveFixer (props){
               Normal Map Generator</div>
           </header> 
 
-          <div class="main_body">
+          <div className="main_body">
             <div className='centered'>
               <Cropper
                 ref={cropperRef}
