@@ -1,5 +1,8 @@
 import React, { useRef, useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import {Canvas as ThreeCanvas} from "@react-three/fiber";
+import { Suspense } from "react";
+import { OrbitControls } from "@react-three/drei";
+import Box from "../components/shapes/box"
 import '../css/norm_map_generator.css';
 
 
@@ -19,6 +22,7 @@ let dZ = 1
 let globalBlurAmnt = 0;
 
 const img = new Image()
+const normalMap = new Image()
 
 
 function NrmMapGenCanvas(props, ref){
@@ -135,6 +139,7 @@ function NrmMapGenCanvas(props, ref){
         }
         ctx.putImageData(canvasData, 0, 0, 0, 0, imgSize[0], imgSize[1])
         blurUpdate()
+        normalMap.src = canvas.toDataURL();
     }
 
 
@@ -191,8 +196,14 @@ function NrmMapGenCanvas(props, ref){
                     <SliderWrapper name_value="Blur" min_value={0} max_value={13} step_value={0.0001} default_value={0} funcforthis={(event) => { setBlurAmount(event.target.value); globalBlurAmnt = event.target.value; blurUpdate(); }} />
                 </div>
 
-                <div className = "grid_item">
-                <ThreeCanvas>
+                <div className = "grid_item" id="three-container">
+                <ThreeCanvas className="three-canvas">
+                    <OrbitControls enableZoom={false} />
+                    <ambientLight intensity={1} />
+                    <directionalLight position={[-2, 5, 2]} />
+                    <Suspense fallback={null}>
+                        <Box normalMap={normalMap.src}></Box>
+                    </Suspense>
                 </ThreeCanvas>
                 </div>
             </div>

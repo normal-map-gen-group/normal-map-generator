@@ -1,5 +1,17 @@
 
 
+#three-container{
+  background-color: rgba(240, 248, 255, 0);
+}
+
+.three-canvas{
+  /* width: 800px; */
+  min-height: 500px;
+  min-width: 500px;
+}
+
+
+
 #highres-canvas{
   display:none;
 }
