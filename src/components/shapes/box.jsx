@@ -1,7 +1,6 @@
 import React from "react";
 import { useLoader } from "@react-three/fiber";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
-import texture from "../../np.png"
 
 export default function Box(props){
 

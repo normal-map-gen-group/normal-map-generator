@@ -199,8 +199,9 @@ function NrmMapGenCanvas(props, ref){
                 <div className = "grid_item" id="three-container">
                 <ThreeCanvas className="three-canvas">
                     <OrbitControls enableZoom={true} />
-                    <ambientLight intensity={1} />
-                    <directionalLight position={[-2, 5, 2]} />
+                    <ambientLight intensity={0.2} />
+                    {/* <directionalLight position={[-2, 5, 2]} /> */}
+                    <directionalLight position={[6, -8, 5]} />
                     <Suspense fallback={null}>
                         <Box normalMap={normalMap.src}></Box>
                     </Suspense>
