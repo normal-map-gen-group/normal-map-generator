@@ -17,7 +17,6 @@ let ctx = null
 let canvasData = null //TODO::This step may not be needed.
 let imgSize = [0,0]
 let orgSize = [0,0]
-let isImgLoaded = true;
 let dZ = 1
 let globalBlurAmnt = 0;
 
@@ -29,7 +28,7 @@ function NrmMapGenCanvas(props, ref){
     
     // let Caman = window.Caman
     let cv = window.cv //Load opencv.
-    img.src = props.baseImage.src;
+    
     const RegCanvas = useRef() //React ref to get the canvas.
     const HDCanvas = useRef()
     const isRenderHighRes = useRef(false);
@@ -139,7 +138,7 @@ function NrmMapGenCanvas(props, ref){
         }
         ctx.putImageData(canvasData, 0, 0, 0, 0, imgSize[0], imgSize[1])
         blurUpdate()
-        normalMap.src = canvas.toDataURL();
+        normalMap.src = canvas.toDataURL("image/jpeg", 0.5);
     }
 
 
@@ -170,6 +169,7 @@ function NrmMapGenCanvas(props, ref){
     // Makes sure to update the canvas on intensity change
     useEffect(() => {
         if(firstRender == true){
+            img.src = props.baseImage.src;
             GenerateNormalMap()
             setRendered(false);
         }
