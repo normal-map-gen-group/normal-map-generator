@@ -1,8 +1,9 @@
 import React, { useRef, useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import {Canvas as ThreeCanvas} from "@react-three/fiber";
 import { Suspense } from "react";
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, Environment } from "@react-three/drei";
 import Box from "../components/shapes/box"
+import HdrFile from "../resources/sky.hdr"
 import '../css/norm_map_generator.css';
 
 import SliderWrapper from './slider_wrapper';
@@ -177,7 +178,6 @@ function NrmMapGenCanvas(props, ref){
 
    
 
-
     //HTML elements of this component.
     return (
         <div id="canvas-container">
@@ -197,11 +197,14 @@ function NrmMapGenCanvas(props, ref){
                 <div className = "grid_item" id="three-container">
                 <ThreeCanvas className="three-canvas">
                     <OrbitControls enableZoom={true} />
-                    <ambientLight intensity={0.2} />
-                    {/* <directionalLight position={[-2, 5, 2]} /> */}
-                    <directionalLight position={[6, -8, 5]} />
+                    <pointLight position={[-20, 30, 10]} />
+                    <pointLight position={[30, -40, 50]} />
+                    <pointLight position={[20, -10, -30]} />
                     <Suspense fallback={null}>
                         <Box normalMap={normalMap.src}></Box>
+                        <Environment
+                            background={true}
+                            files={HdrFile}/>
                     </Suspense>
                 </ThreeCanvas>
                 </div>

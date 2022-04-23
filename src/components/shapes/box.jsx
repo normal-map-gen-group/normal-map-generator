@@ -9,8 +9,7 @@ const normalMap = useLoader(TextureLoader, props.normalMap);
   return (
     <mesh rotation={[90, 0, 20]}>
       <boxBufferGeometry attach="geometry" args={[3, 3, 3]} />
-      <meshNormalMaterial attach="material" />
-      <meshStandardMaterial normalMap={normalMap} color="black" roughness="0.3" />
+      <meshStandardMaterial normalMap={normalMap} color="#3b3b3b" roughness="0.33" />
     </mesh>
   );
 }
