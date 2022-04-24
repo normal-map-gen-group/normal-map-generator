@@ -6,6 +6,7 @@ export default function Box(props){
 
 const normalMap = useLoader(TextureLoader, props.normalMap);
 
+
   return (
     <mesh rotation={[90, 0, 20]}>
       <boxBufferGeometry attach="geometry" args={[3, 3, 3]} />
