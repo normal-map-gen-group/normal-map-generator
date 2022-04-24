@@ -1,11 +1,16 @@
 import React, { useRef, useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import {Canvas as ThreeCanvas} from "@react-three/fiber";
 import { Suspense } from "react";
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, Environment } from "@react-three/drei";
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
+import { useLoader as meshLoader } from '@react-three/fiber'
+import * as THREE from 'three';
 import Box from "../components/shapes/box"
+import HdrFile from "../resources/sky.hdr"
 import '../css/norm_map_generator.css';
 
 import SliderWrapper from './slider_wrapper';
+import Mesh from './shapes/mesh';
 
 let baseImgMat = null //Stores the unprocessed img.
 let srcImgMat = null
@@ -16,7 +21,6 @@ let ctx = null
 let canvasData = null //TODO::This step may not be needed.
 let imgSize = [0,0]
 let orgSize = [0,0]
-let isImgLoaded = true;
 let dZ = 1
 let globalBlurAmnt = 0;
 
@@ -28,7 +32,7 @@ function NrmMapGenCanvas(props, ref){
     
     // let Caman = window.Caman
     let cv = window.cv //Load opencv.
-    img.src = props.baseImage.src;
+    
     const RegCanvas = useRef() //React ref to get the canvas.
     const HDCanvas = useRef()
     const isRenderHighRes = useRef(false);
@@ -37,6 +41,8 @@ function NrmMapGenCanvas(props, ref){
     const [detail, setDetail] = useState(1); //Slider State
     const [blurAmount, setBlurAmount] = useState(0)
     const [firstRender, setRendered] = useState(true)
+    const [model, setModel] = useState(undefined)
+    const [modelType, setModelType] = useState("box")
 
 
     /**
@@ -138,7 +144,7 @@ function NrmMapGenCanvas(props, ref){
         }
         ctx.putImageData(canvasData, 0, 0, 0, 0, imgSize[0], imgSize[1])
         blurUpdate()
-        normalMap.src = canvas.toDataURL();
+        normalMap.src = canvas.toDataURL("image/jpeg", 0.5);
     }
 
 
@@ -161,6 +167,13 @@ function NrmMapGenCanvas(props, ref){
         updateNormalMap()
     }
 
+    function loadModel(event){
+        const file = event.target.files[0];
+        const url = URL.createObjectURL(file);
+        setModel(url)
+        setModelType("custom");
+    }
+
     useImperativeHandle(ref, () => ({
         GenerateNormalMap,
         isRenderHighRes
@@ -169,6 +182,7 @@ function NrmMapGenCanvas(props, ref){
     // Makes sure to update the canvas on intensity change
     useEffect(() => {
         if(firstRender == true){
+            img.src = props.baseImage.src;
             GenerateNormalMap()
             setRendered(false);
         }
@@ -176,7 +190,6 @@ function NrmMapGenCanvas(props, ref){
      },[intensity, detail, blurAmount])
 
    
-
 
     //HTML elements of this component.
     return (
@@ -194,14 +207,32 @@ function NrmMapGenCanvas(props, ref){
                     <SliderWrapper name_value="Blur" min_value={0} max_value={13} step_value={0.0001} default_value={0} funcforthis={(event) => { setBlurAmount(event.target.value); globalBlurAmnt = event.target.value; blurUpdate(); }} />
                 </div>
 
-                <div className = "grid_item" id="three-container">
+                <div className="grid_item" id="three-container">
+
+                    <div className="custom-loader">
+                        <label className="waves-effect waves-light btn-large">
+                            <input id="button-display" type="file" onChange={loadModel} />
+                            Load Custom Model
+                        </label>
+                    </div>
+                    <div id="model-selector-container">
+                        <label className="waves-effect waves-light btn-large" id="button-container" onClick={() => {setModelType("box")}}>Cube</label>
+                        <label className="waves-effect waves-light btn-large" id="button-container" onClick={() => {setModelType("sphere")}}>Sphere</label>
+                        <label className="waves-effect waves-light btn-large" id="button-container" onClick={() => {setModelType("torus")}}>Torus</label>
+                    </div>
+
+
+
                 <ThreeCanvas className="three-canvas">
                     <OrbitControls enableZoom={true} />
-                    <ambientLight intensity={0.2} />
-                    {/* <directionalLight position={[-2, 5, 2]} /> */}
-                    <directionalLight position={[6, -8, 5]} />
+                    <pointLight position={[-20, 30, 10]} />
+                    <pointLight position={[30, -40, 50]} />
+                    <pointLight position={[20, -10, -30]} />
                     <Suspense fallback={null}>
-                        <Box normalMap={normalMap.src}></Box>
+                        <Mesh modelType={modelType} model={model} normalMap={normalMap.src}></Mesh>
+                        <Environment
+                            background={true}
+                            files={HdrFile}/>
                     </Suspense>
                 </ThreeCanvas>
                 </div>
