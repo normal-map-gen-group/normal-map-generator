@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/normal-map-generator/static/css/main.d75211df.chunk.css",
+    "main.js": "/normal-map-generator/static/js/main.9ca683fa.chunk.js",
+    "main.js.map": "/normal-map-generator/static/js/main.9ca683fa.chunk.js.map",
+    "runtime-main.js": "/normal-map-generator/static/js/runtime-main.ab032cf4.js",
+    "runtime-main.js.map": "/normal-map-generator/static/js/runtime-main.ab032cf4.js.map",
+    "static/js/2.52bcb8de.chunk.js": "/normal-map-generator/static/js/2.52bcb8de.chunk.js",
+    "static/js/2.52bcb8de.chunk.js.map": "/normal-map-generator/static/js/2.52bcb8de.chunk.js.map",
+    "static/js/3.f994d2b7.chunk.js": "/normal-map-generator/static/js/3.f994d2b7.chunk.js",
+    "static/js/3.f994d2b7.chunk.js.map": "/normal-map-generator/static/js/3.f994d2b7.chunk.js.map",
+    "index.html": "/normal-map-generator/index.html",
+    "precache-manifest.65a7cebb66fa21528033cfbb3ba59695.js": "/normal-map-generator/precache-manifest.65a7cebb66fa21528033cfbb3ba59695.js",
+    "service-worker.js": "/normal-map-generator/service-worker.js",
+    "static/css/main.d75211df.chunk.css.map": "/normal-map-generator/static/css/main.d75211df.chunk.css.map",
+    "static/js/2.52bcb8de.chunk.js.LICENSE.txt": "/normal-map-generator/static/js/2.52bcb8de.chunk.js.LICENSE.txt",
+    "static/media/sky.hdr": "/normal-map-generator/static/media/sky.b9c29f6e.hdr"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ab032cf4.js",
+    "static/js/2.52bcb8de.chunk.js",
+    "static/css/main.d75211df.chunk.css",
+    "static/js/main.9ca683fa.chunk.js"
+  ]
+}
