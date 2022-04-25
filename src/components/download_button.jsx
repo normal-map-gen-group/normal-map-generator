@@ -12,6 +12,9 @@ export default function DownloadButton(props) {
     anchor.href = canvas.toDataURL("image/png");
     anchor.download = "NormalMap.png";
     anchor.click();
+    anchor.href = props.baseImage.src;
+    anchor.download = "Diffuse.png"
+    anchor.click()
   }
 
   return (

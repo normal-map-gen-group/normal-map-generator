@@ -59,7 +59,7 @@ function MainScreen (props){
           </div>
 
           <div className="BtnBtm">
-            <DownloadButton renderHighRes={renderHighRes}></DownloadButton>
+            <DownloadButton renderHighRes={renderHighRes} baseImage={props.baseImage}></DownloadButton>
           </div> 
 
 
