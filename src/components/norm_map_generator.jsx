@@ -168,10 +168,11 @@ function NrmMapGenCanvas(props, ref){
     }
 
     function loadModel(event){
-        const file = event.target.files[0];
-        const url = URL.createObjectURL(file);
+        if (event.target.files && event.target.files[0]) {
+        const url = URL.createObjectURL(event.target.files[0]);
         setModel(url)
         setModelType("custom");
+        }
     }
 
     useImperativeHandle(ref, () => ({
@@ -195,51 +196,49 @@ function NrmMapGenCanvas(props, ref){
     return (
         <div id="canvas-container">
 
-            <div className = "grid_items">
-                <div className = "grid_item">
-                <canvas id="normal-canvas" ref={RegCanvas} width="250" height="250"></canvas>
-                <canvas id="highres-canvas" ref={HDCanvas} width="250" height="250"></canvas>                
+            <div className="grid_items">
+                <div className="grid_item">
+                    <canvas id="normal-canvas" ref={RegCanvas} width="250" height="250"></canvas>
+                    <canvas id="highres-canvas" ref={HDCanvas} width="250" height="250"></canvas>
                 </div>
 
-                <div className = "grid_item">
-                    <SliderWrapper name_value="Intensity" min_value={0.00001} max_value={0.05} step_value={0.0001} default_value={0.01} funcforthis={(event) => { onIntensityChange(event) }} />
-                    <SliderWrapper name_value="Detail" min_value={-10} max_value={10} step_value={0.1} default_value={1} funcforthis={(event) => { onLevelChange(event) }} />
+                <div className="grid_item" id="slider-container">
+                    <SliderWrapper name_value="Intensity" min_value={0.00001} max_value={0.08} step_value={0.0001} default_value={0.01} funcforthis={(event) => { onIntensityChange(event) }} />
+                    <SliderWrapper name_value="Detail" min_value={-10} max_value={15} step_value={0.1} default_value={1} funcforthis={(event) => { onLevelChange(event) }} />
                     <SliderWrapper name_value="Blur" min_value={0} max_value={13} step_value={0.0001} default_value={0} funcforthis={(event) => { setBlurAmount(event.target.value); globalBlurAmnt = event.target.value; blurUpdate(); }} />
                 </div>
 
                 <div className="grid_item" id="three-container">
 
+                    <div id="model-selector-container">
                     <div className="custom-loader">
-                        <label className="waves-effect waves-light btn-large">
+                        <label className="model-picker waves-effect waves-light" id="top-selector">
                             <input id="button-display" type="file" onChange={loadModel} />
                             Load Custom Model
                         </label>
                     </div>
-                    <div id="model-selector-container">
-                        <label className="waves-effect waves-light btn-large" id="button-container" onClick={() => {setModelType("box")}}>Cube</label>
-                        <label className="waves-effect waves-light btn-large" id="button-container" onClick={() => {setModelType("sphere")}}>Sphere</label>
-                        <label className="waves-effect waves-light btn-large" id="button-container" onClick={() => {setModelType("torus")}}>Torus</label>
+                        <label className="model-picker waves-effect waves-light"  id="left-selector" onClick={() => { setModelType("box") }}>Cube</label>
+                        <label className="model-picker waves-effect waves-light" id="center-selector" onClick={() => { setModelType("sphere") }}>Sphere</label>
+                        <label className="model-picker waves-effect waves-light"  id="right-selector" onClick={() => { setModelType("torus") }}>Torus</label>
                     </div>
 
 
-
-                <ThreeCanvas className="three-canvas">
-                    <OrbitControls enableZoom={true} />
-                    <pointLight position={[-20, 30, 10]} />
-                    <pointLight position={[30, -40, 50]} />
-                    <pointLight position={[20, -10, -30]} />
-                    <Suspense fallback={null}>
-                        <Mesh modelType={modelType} model={model} normalMap={normalMap.src}></Mesh>
-                        <Environment
-                            background={true}
-                            files={HdrFile}/>
-                    </Suspense>
-                </ThreeCanvas>
+                    <div className="three-canvas">
+                        <ThreeCanvas>
+                            <OrbitControls enableZoom={true} />
+                            <pointLight position={[-20, 30, 10]} />
+                            <pointLight position={[30, -40, 50]} />
+                            <pointLight position={[20, -10, -30]} />
+                            <Suspense fallback={null}>
+                                <Mesh modelType={modelType} model={model} normalMap={normalMap.src}></Mesh>
+                                <Environment
+                                    background={true}
+                                    files={HdrFile} />
+                            </Suspense>
+                        </ThreeCanvas>
+                    </div>
                 </div>
             </div>
-
-
-            
         </div>
     )
 }

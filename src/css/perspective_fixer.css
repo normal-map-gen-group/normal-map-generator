@@ -3,6 +3,7 @@
 
 .continue{
   border-radius: 15px;
+  z-index: 10;
 }
 
 #cropper {
@@ -32,4 +33,5 @@
 .continueBtnBtm > button {
   margin: 0px 45px;
   padding: 0px 50px;
+  z-index: 10;
 }

@@ -12,6 +12,7 @@ function PerspectiveFixer (props){
   const [cropState, setCropState] = useState()
   const [getImage, setGetImage] = useState(false)
   const cropperRef = useRef()
+  const [isCropped, setIsCropped] = useState(false);
 
   const onDragStop = useCallback((s) => setCropState(s), [])
   const onChange = useCallback((s) => setCropState(s), [])
@@ -21,23 +22,27 @@ function PerspectiveFixer (props){
   }
 
   const doSomething = async () => {
-    console.log(cropState)
-    try {
-      const res = await cropperRef.current.done({ preview: true })
-      console.log(res)
-      props.baseImage.src = document.getElementById("perspective-fixer").toDataURL();
-      setBaseImage(props.baseImage);
-    } catch (e) {
-      console.log('error', e)
+    if (!isCropped) {
+      try {
+        const res = await cropperRef.current.done({ preview: true })
+        console.log(res)
+        props.baseImage.src = document.getElementById("perspective-fixer").toDataURL();
+        setBaseImage(props.baseImage);
+        setIsCropped(true);
+      } catch (e) {
+        console.log('error', e)
+      }
     }
   }
 
   function goBack() {
+    setIsCropped(false);
     props.onGoBack("SplashScreen");
   }
   
   function handleSceneChange() {
     setBaseImage(props.baseImage);
+    setIsCropped(false);
     props.onSceneChange("MainScreen");
   }
 
@@ -70,6 +75,7 @@ function PerspectiveFixer (props){
                 onChange={onChange}
                 onDragStop={onDragStop}
                 maxWidth={500}
+                maxHeight={700}
               />
             </div>
             
